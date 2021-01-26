@@ -46,7 +46,36 @@ class Usuario {
         this.contraseña = sContraseña;
         this.email = sEMail;
         this.nombre = sNombre;
+        this.notas = [];
     }
 }
 
-//hola que tal, mamelucos mirarme a mi.
+class Notas
+{
+    constructor(iIdNota, sTitulo, sContenido)
+    {
+        this.idNota = iIdNota;
+        this.titulo = sTitulo;
+        this.contenido = sContenido;
+    }
+}
+
+class Nota 
+{
+    contructor(sIdGrupo, sNombre)
+    {
+        this.idGrupo = sIdGrupo;
+        this.nombre = sNombre;
+        this.usuarios = [];
+    }
+}
+
+
+class usuarioGrupo
+{
+    constructor(sIdUsuario, sIdGrupo)
+    {
+        this.idUsuario = sIdUsuario;
+        this.idGrupo = sIdGrupo;
+    }
+}
