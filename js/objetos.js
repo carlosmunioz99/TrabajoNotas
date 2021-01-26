@@ -12,7 +12,7 @@ class Notas {
     {
         let bResultado = true;
 
-        if(this._usuarios.some(oUsuario => oUsuario.sUsuario == oUsuario.usuario))
+        if(this._usuarios.some(oU => oU.usuario == oUsuario.usuario))
         {
             bResultado = false;
         }
@@ -63,7 +63,7 @@ class Usuario {
     }
 }
 
-class Notas
+class Nota
 {
     constructor(iIdNota, sTitulo, sContenido)
     {
@@ -73,7 +73,7 @@ class Notas
     }
 }
 
-class Nota 
+class Grupo 
 {
     contructor(sIdGrupo, sNombre)
     {
@@ -84,7 +84,7 @@ class Nota
 }
 
 
-class usuarioGrupo
+class UsuarioGrupo
 {
     constructor(sIdUsuario, sIdGrupo)
     {
