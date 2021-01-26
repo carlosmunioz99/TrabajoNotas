@@ -6,6 +6,7 @@ class Notas{
         this._grupos=[];
     }
 
+    
     registrarUsuario(oUsuario){
 
     }
@@ -36,5 +37,16 @@ class Notas{
 
     bajaGrupo(oGrupo){
 
+    }
+}
+
+class Usuario
+{
+    constructor(sUsuario, sContraseña, sEMail, sNombre)
+    {
+        this.usuario = sUsuario;
+        this.contraseña = sContraseña;
+        this.email = sEMail;
+        this.nombre = sNombre;
     }
 }
