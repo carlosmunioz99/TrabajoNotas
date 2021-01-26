@@ -9,6 +9,17 @@ class Notas {
 
     registrarUsuario(oUsuario) 
     {
+        let bResultado = true;
+
+        if(this._usuarios.some(oUsuario => oUsuario.sUsuario == oUsuario.usuario))
+        {
+            bResultado = false;
+        }
+        else
+        {
+            this._usuarios.push(oUsuario);
+        }
+        return bResultado;
 
     }
 
