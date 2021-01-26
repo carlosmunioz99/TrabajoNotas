@@ -7,7 +7,8 @@ class Notas {
     }
 
 
-    registrarUsuario(oUsuario) {
+    registrarUsuario(oUsuario) 
+    {
 
     }
 
