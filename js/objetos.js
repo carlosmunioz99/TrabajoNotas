@@ -1,49 +1,47 @@
-class Notas{
-    constructor(){
-        this._notas=[];
-        this._usuarios=[];
-        this._usuarioGrupos=[];
-        this._grupos=[];
+class Notas {
+    constructor() {
+        this._notas = [];
+        this._usuarios = [];
+        this._usuarioGrupos = [];
+        this._grupos = [];
     }
 
-    
-    registrarUsuario(oUsuario){
 
-    }
-
-    modificarUsuario(oUsuario){
+    registrarUsuario(oUsuario) {
 
     }
 
-    bajaUsuario(oUsuario){
+    modificarUsuario(oUsuario) {
 
     }
 
-    altaNota(oNota){
+    bajaUsuario(oUsuario) {
 
     }
 
-    modificarNota(oNota){
+    altaNota(oNota) {
 
     }
 
-    bajaNota(oNota){
+    modificarNota(oNota) {
 
     }
 
-    altaGrupo(oGrupo){
+    bajaNota(oNota) {
 
     }
 
-    bajaGrupo(oGrupo){
+    altaGrupo(oGrupo) {
+
+    }
+
+    bajaGrupo(oGrupo) {
 
     }
 }
 
-class Usuario
-{
-    constructor(sUsuario, sContraseña, sEMail, sNombre)
-    {
+class Usuario {
+    constructor(sUsuario, sContraseña, sEMail, sNombre) {
         this.usuario = sUsuario;
         this.contraseña = sContraseña;
         this.email = sEMail;
@@ -51,4 +49,4 @@ class Usuario
     }
 }
 
-//hola que tal
+//hola que tal, mamelucos mirarme a mi.
