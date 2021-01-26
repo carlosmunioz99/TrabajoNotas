@@ -1,3 +1,4 @@
+'use strict';
 class Notas {
     constructor() {
         this._notas = [];
