@@ -1,143 +1,221 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <title>Trabajo Grupo 5</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="#" id="btnLogin" name="btnLogin" value="Login" data-toggle="modal" data-target="#login">Login</a></li>
-                <li><a href="#" id="btnRegistro" name="btnRegistro" value="Registro" data-toggle="modal" data-target="#registro">Registro</a></li>
-
-            </ul>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
         </div>
+        <ul class="nav navbar-nav">
+          <li>
+            <a
+              href="#"
+              id="btnLogin"
+              name="btnLogin"
+              value="Login"
+              data-toggle="modal"
+              data-target="#modalLogin"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              id="btnRegistro"
+              name="btnRegistro"
+              value="Registro"
+              data-toggle="modal"
+              data-target="#modalRegistro"
+              >Registro</a
+            >
+          </li>
+        </ul>
+      </div>
     </nav>
 
+    <!------------------MODALES------------------>
 
-    <div class="modal" tabindex="-1" role="dialog" id="login">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div id="login">
-                        <form id="frmLogin" class="form-horizontal">
-                            <fieldset>
-                                <!-- Form Name -->
-                                <legend>Login</legend>
+    <!--MODAL LOGIN-->
+    <div class="modal" tabindex="-1" role="dialog" id="modalLogin">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form id="frmLogin" class="form-horizontal">
+              <fieldset>
+                <!-- Form Name -->
+                <legend>Login</legend>
 
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtMail">E-Mail</label>
-                                    <div class="col-md-4">
-                                        <input id="txtMail" name="txtMail" type="text" placeholder="Mail" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtContraseña">Contraseña</label>
-                                    <div class="col-md-4">
-                                        <input id="txtContraseña" name="txtContraseña" type="text" placeholder="Contraseña" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-                                <!-- Button -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="btnLogin"></label>
-                                    <div class="col-md-4">
-                                        <input type="button" id="btnLogin" name="btnLogin" class="btn btn-primary" value="Entrar" onclick="" />
-                                        <input type="button" id="btnVolver" name="btnVolver" class="btn btn-primary" value="Cerrar" data-dismiss="modal" />
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="txtMail"
+                    >E-Mail</label
+                  >
+                  <div class="col-md-4">
+                    <input
+                      id="txtMail"
+                      name="txtMail"
+                      type="text"
+                      placeholder="Mail"
+                      class="form-control input-md"
+                      required
+                    />
+                  </div>
                 </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="txtContraseña"
+                    >Contraseña</label
+                  >
+                  <div class="col-md-4">
+                    <input
+                      id="txtContraseña"
+                      name="txtContraseña"
+                      type="text"
+                      placeholder="Contraseña"
+                      class="form-control input-md"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="btnLogin"></label>
+                  <div class="col-md-4">
+                    <input
+                      type="button"
+                      id="btnLogin"
+                      name="btnLogin"
+                      class="btn btn-primary"
+                      value="Entrar"
+                      onclick=""
+                    />
+                    <input
+                      type="button"
+                      id="btnVolver"
+                      name="btnVolver"
+                      class="btn btn-primary"
+                      value="Cerrar"
+                      data-dismiss="modal"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--MODAL REGISTRO-->
+    <div class="modal" tabindex="-1" role="dialog" id="modalRegistro">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form name="frmRegistro" class="form-horizontal">
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtNombre"
+                  >Nombre</label
+                >
+                <div class="col-md-4">
+                  <input
+                    id="txtNombre"
+                    name="txtNombre"
+                    type="text"
+                    placeholder="Nombre"
+                    class="form-control input-md"
+                  />
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtIdUsuario"
+                  >Nombre de usuario</label
+                >
+                <div class="col-md-4">
+                  <input
+                    id="txtIdUsuario"
+                    name="txtIdUsuario"
+                    type="text"
+                    placeholder="Id de usuario"
+                    class="form-control input-md"
+                  />
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtMail"
+                  >E-Mail</label
+                >
+                <div class="col-md-4">
+                  <input
+                    id="txtMail"
+                    name="txtMail"
+                    type="text"
+                    id="iptRegistroEmail"
+                    placeholder="Mail"
+                    class="form-control input-md"
+                  />
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtContraseña"
+                  >Contraseña</label
+                >
+                <div class="col-md-4">
+                  <input
+                    id="txtContraseña"
+                    name="txtContraseña"
+                    id="iptRegistroPassword"
+                    type="text"
+                    placeholder="Contraseña"
+                    class="form-control input-md"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <input type="button" class="btn btn-primary" value="Registrarse" id="btnRegistrarUsuario">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!--MODAL ERRORES-->
+    <div class="modal" tabindex="-1" role="dialog" id="modalError">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
         </div>
     </div>
 
-
-
-
-    <div class="modal" tabindex="-1" role="dialog" id="registro">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-
-                <div class="modal-body">
-
-
-                    <div id="registro">
-                        <form name="frmRegistro" class="form-horizontal">
-                            <fieldset>
-                                <!-- Form Name -->
-                                <legend>Registro</legend>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtNombre">Nombre</label>
-                                    <div class="col-md-4">
-                                        <input id="txtNombre" name="txtNombre" id="iptRegistroNombre" type="text" placeholder="Nombre" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtMail">E-Mail</label>
-                                    <div class="col-md-4">
-                                        <input id="txtMail" name="txtMail" type="text" id="iptRegistroEmail" placeholder="Mail" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtContraseña">Contraseña</label>
-                                    <div class="col-md-4">
-                                        <input id="txtContraseña" name="txtContraseña" id="iptRegistroPassword" type="text" placeholder="Contraseña" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-
-                                <!-- Button -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="btnLogin"></label>
-                                    <div class="col-md-4">
-                                        <input type="button" id="btnLogin" name="btnLogin" class="btn btn-primary" value="Entrar" />
-                                        <input type="button" id="btnVolver" name="btnVolver" class="btn btn-primary" value="Cerrar" data-dismiss="modal" />
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-</body>
-<script src="js/objetos.js"></script>
-<script src="js/codigo.js"></script>
-
+  </body>
+  <script src="js/objetos.js"></script>
+  <script src="js/codigo.js"></script>
 </html>
