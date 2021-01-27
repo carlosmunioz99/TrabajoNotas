@@ -1,5 +1,5 @@
 "use strict";
-var oNotas= new oNotas();
+var oNotas= new Notas();
 
 
 //eventos

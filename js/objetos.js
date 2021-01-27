@@ -1,3 +1,4 @@
+'use strict';
 class Notas {
     constructor() {
         this._notas = [];
@@ -7,7 +8,19 @@ class Notas {
     }
 
 
-    registrarUsuario(oUsuario) {
+    registrarUsuario(oUsuario) 
+    {
+        let bResultado = true;
+
+        if(this._usuarios.some(oU => oU.usuario == oUsuario.usuario))
+        {
+            bResultado = false;
+        }
+        else
+        {
+            this._usuarios.push(oUsuario);
+        }
+        return bResultado;
 
     }
 
@@ -46,7 +59,36 @@ class Usuario {
         this.contraseña = sContraseña;
         this.email = sEMail;
         this.nombre = sNombre;
+        this.notas = [];
     }
 }
 
-//hola que tal, mamelucos mirarme a mi.
+class Nota
+{
+    constructor(iIdNota, sTitulo, sContenido)
+    {
+        this.idNota = iIdNota;
+        this.titulo = sTitulo;
+        this.contenido = sContenido;
+    }
+}
+
+class Grupo 
+{
+    contructor(sIdGrupo, sNombre)
+    {
+        this.idGrupo = sIdGrupo;
+        this.nombre = sNombre;
+        this.usuarios = [];
+    }
+}
+
+
+class UsuarioGrupo
+{
+    constructor(sIdUsuario, sIdGrupo)
+    {
+        this.idUsuario = sIdUsuario;
+        this.idGrupo = sIdGrupo;
+    }
+}
