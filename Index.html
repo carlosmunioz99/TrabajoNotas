@@ -52,20 +52,20 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body">
-            <form id="frmLogin" class="form-horizontal">
+            <form name="frmLogin" class="form-horizontal">
               <fieldset>
                 <!-- Form Name -->
                 <legend>Login</legend>
 
                 <!-- Text input-->
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtMail"
-                    >E-Mail</label
+                  <label class="col-md-4 control-label" for="txtNombreUsuario"
+                    >Nombre de Usuario</label
                   >
                   <div class="col-md-4">
                     <input
-                      id="txtMail"
-                      name="txtMail"
+                      id="txtNombreUsuario"
+                      name="txtNombreUsuario"
                       type="text"
                       placeholder="Mail"
                       class="form-control input-md"
@@ -139,7 +139,9 @@
                     placeholder="Nombre"
                     class="form-control input-md"
                   />
+                  <small  class="form-text text-danger"></small>
                 </div>
+
               </div>
 
               <!-- Text input-->
@@ -155,6 +157,7 @@
                     placeholder="Id de usuario"
                     class="form-control input-md"
                   />
+                  <small  class="form-text text-danger"></small>
                 </div>
               </div>
 
@@ -172,6 +175,7 @@
                     placeholder="Mail"
                     class="form-control input-md"
                   />
+                  <small  class="form-text text-danger"></small>
                 </div>
               </div>
 
@@ -189,6 +193,7 @@
                     placeholder="Contraseña"
                     class="form-control input-md"
                   />
+                  <small  class="form-text text-danger"></small>
                 </div>
               </div>
             </form>
@@ -202,18 +207,7 @@
     </div>
 
     
-    <!--MODAL ERRORES-->
-    <div class="modal" tabindex="-1" role="dialog" id="modalError">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-        </div>
-    </div>
+    
 
   </body>
   <script src="js/objetos.js"></script>
