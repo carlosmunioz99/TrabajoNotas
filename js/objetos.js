@@ -12,7 +12,7 @@ class Notas {
     {
         let bResultado = true;
 
-        if(this._usuarios.some(oU => oU.usuario == oUsuario.usuario))
+        if(this._usuarios.some(oU => (oU.usuario == oUsuario.usuario || oU.email == oUsuario.email)))
         {
             bResultado = false;
         }
@@ -22,6 +22,11 @@ class Notas {
         }
         return bResultado;
 
+    }
+
+    buscarUsuario(sNombreUsuario,sPassword){
+        //buscar usuario, false si no lo encuentra, true si sí
+        return false;
     }
 
     modificarUsuario(oUsuario) {

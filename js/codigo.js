@@ -10,7 +10,7 @@ let registrarUsuario = () => {
 
   if (!oPatron.test(sIdUsuario)) {
     let $smallError=frmRegistro.txtIdUsuario.nextElementSibling;
-    $smallError.textContent="- Formato de nombre de usuario incorrecto";
+    $smallError.textContent="- El id debe estar compuesta por números o letras, entre 5 y 10 caracteres.";
     bError = true;
   }else{
     let $smallError=frmRegistro.txtIdUsuario.nextElementSibling;
@@ -19,11 +19,11 @@ let registrarUsuario = () => {
 
 
   let sNombre = frmRegistro.txtNombre.value.trim();
-  oPatron = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{2,50}$/;
+  oPatron = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}$/;
 
   if (!oPatron.test(sNombre)) {
     let $smallError=frmRegistro.txtNombre.nextElementSibling;
-    $smallError.textContent="- Formato de nombre incorrecto";
+    $smallError.textContent="- Formato de nombre incorrecto.";
     bError = true;
   }else{
     let $smallError=frmRegistro.txtNombre.nextElementSibling;
@@ -45,7 +45,7 @@ let registrarUsuario = () => {
   oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,10}$/;
   if (!oPatron.test(sPasword)) {
     let $smallError=frmRegistro.txtContraseña.nextElementSibling;
-    $smallError.textContent="- Formato de password incorrecto";
+    $smallError.textContent="- La contraseña debe estar compuesta por números o letras, entre 6 y 10 caracteres.";
     bError = true;
   }else{
     let $smallError=frmRegistro.txtContraseña.nextElementSibling;
@@ -55,34 +55,95 @@ let registrarUsuario = () => {
   if (!bError) {
 
     let oUsuario = new Usuario(sIdUsuario,sPasword,sEmail,sNombre);
-    
+    let $mensaje=frmRegistro.firstElementChild;
+
+    $mensaje.classList.remove("ocultar");
     if(oNotas.registrarUsuario(oUsuario)){
-        alert("registrado correctamente");
+      $mensaje.textContent="Registrado correctamente.";
+      $mensaje.classList.remove("alert-danger");
+      $mensaje.classList.add("alert-success");
     }else{
-      alert("nombre de usuario o email ya existen");
+      $mensaje.textContent="Nombre de usuario o email ya existen";
+      $mensaje.classList.remove("alert-success");
+      $mensaje.classList.add("alert-danger");
     }
 
   } 
 
 }
 
-let limpiarRegistro =()=>{
-  console.log("asd");
-  frmRegistro.reset();
-  let vSmallErrores=document.querySelectorAll("#modalRegistro small");
 
+let limpiarRegistro =()=>{
+  
+  frmRegistro.reset();
+  let vSmallErrores=document.querySelectorAll("#modalRegistro small,#modalRegistro form> div:first-child");
+  
+  vSmallErrores[0].classList.add("ocultar");
   for(let i=0;i<vSmallErrores.length;i++){
     vSmallErrores[i].textContent="";
   }
 }
 
 let iniciarSesion=()=>{
+  
+  let sInfo="";
+  let $mensaje=frmLogin.querySelector(".alert");
+  $mensaje.textContent="";
+  let bError = false;
+  let vError=[];
+
   let sNombreUsuario=frmLogin.txtNombreUsuario.value.trim();
 
-  if(oNotas.iniciarSesion()){
-    frmLogin.submit();
+  let oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{5,10}$/;
+   
+
+  
+  if (!oPatron.test(sNombreUsuario)) {
+    vError.push("- Formato de nombre de usuario incorrecto.");
+    
+    bError = true;
   }
-  frmLogin
+
+  let sPasword = frmLogin.txtContraseña.value;
+  oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,10}$/;
+  
+  if (!oPatron.test(sPasword)) {
+    
+    vError.push("- Formato de contraseña incorrecto.");
+    
+    bError = true;
+  }
+  
+  if(!bError){
+    if(oNotas.buscarUsuario(sNombreUsuario,sPasword)){
+
+      frmLogin.submit(); 
+  
+    }else{
+      vError.push("- Nombre de usuario o contraseña incorrectos.");
+      
+      bError=true;
+    }
+  }
+
+  if(bError){
+    vError.forEach(i=>{
+      let $p=document.createElement("p");
+      $p.textContent=i;
+      $mensaje.appendChild($p);
+    });
+    $mensaje.classList.remove("ocultar");
+    $mensaje.classList.add("alert-danger");
+  }
+  
+  
+}
+
+let limpiarLogin=()=>{
+  let $mensaje=frmLogin.querySelector(".alert");
+  $mensaje.textContent="";
+  $mensaje.classList.add("ocultar");
+  frmLogin.reset();
 }
 
 //EVENTOS
@@ -98,6 +159,10 @@ $btnCerrarRegistro.addEventListener("click", limpiarRegistro);
 
 
 //LOGIN
-let $btnEntrarLogin = document.getElementById("btnLogin");
+let $btnEntrarLogin = document.getElementById("btnModalLogin");
 
 $btnEntrarLogin.addEventListener("click", iniciarSesion);
+
+let $btnCerrarLogin = document.getElementById("btnCerrarModalLogin");
+
+$btnCerrarLogin.addEventListener("click", limpiarLogin);

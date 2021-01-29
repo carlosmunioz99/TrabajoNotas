@@ -10,6 +10,7 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
@@ -57,6 +58,8 @@
                 <!-- Form Name -->
                 <legend>Login</legend>
 
+                <div class="alert text-center ocultar" role="alert">
+                </div>
                 <!-- Text input-->
                 <div class="form-group">
                   <label class="col-md-4 control-label" for="txtNombreUsuario"
@@ -93,20 +96,20 @@
 
                 <!-- Button -->
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="btnLogin"></label>
+                  <label class="col-md-4 control-label" for="btnModalLogin"></label>
                   <div class="col-md-4">
                     <input
                       type="button"
-                      id="btnLogin"
-                      name="btnLogin"
+                      id="btnModalLogin"
+                      name="btnModalLogin"
                       class="btn btn-primary"
                       value="Entrar"
                       onclick=""
                     />
                     <input
                       type="button"
-                      id="btnVolver"
-                      name="btnVolver"
+                      id="btnCerrarModalLogin"
+                      name="btnCerrarModalLogin"
                       class="btn btn-primary"
                       value="Cerrar"
                       data-dismiss="modal"
@@ -126,6 +129,8 @@
         <div class="modal-content">
           <div class="modal-body">
             <form name="frmRegistro" class="form-horizontal">
+              <div class="alert ocultar text-center" role="alert">
+              </div>
               <!-- Text input-->
               <div class="form-group">
                 <label class="col-md-4 control-label" for="txtNombre"
@@ -189,7 +194,7 @@
                     id="txtContraseña"
                     name="txtContraseña"
                     id="iptRegistroPassword"
-                    type="text"
+                    type="password"
                     placeholder="Contraseña"
                     class="form-control input-md"
                   />
