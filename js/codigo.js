@@ -1,5 +1,11 @@
 "use strict";
 var oNotas = new Notas();
+//usuarios de prueba
+oNotas.registrarUsuario(new Usuario("pepe123","idvacs","pepe@gmail","Pepe"));
+oNotas.registrarUsuario(new Usuario("juan23","sfef","pepe@gmail","Jaunito"));
+oNotas.registrarUsuario(new Usuario("elmidas2","idvagfddfgcs","elmmidas@gmail","Mid"));
+oNotas.registrarUsuario(new Usuario("estesech","dfg","sech@gmail","Sech"));
+
 
 // Manejadores de eventos.
 let registrarUsuario = () => {
@@ -62,6 +68,8 @@ let registrarUsuario = () => {
       $mensaje.textContent="Registrado correctamente.";
       $mensaje.classList.remove("alert-danger");
       $mensaje.classList.add("alert-success");
+      generarTablaUsuarios();
+      frmRegistro.reset();
     }else{
       $mensaje.textContent="Nombre de usuario o email ya existen";
       $mensaje.classList.remove("alert-success");
@@ -83,6 +91,15 @@ let limpiarRegistro =()=>{
     vSmallErrores[i].textContent="";
   }
 }
+
+let borrarUsuario=(e)=>{
+  if(e.target.getAttribute("class")=="fondo-eliminar"){
+    let sNombreUsuario=e.target.getAttribute("data-id");
+    oNotas.bajaUsuario(sNombreUsuario);
+    generarTablaUsuarios();
+  }
+}
+
 
 let iniciarSesion=()=>{
   
@@ -146,9 +163,42 @@ let limpiarLogin=()=>{
   frmLogin.reset();
 }
 
+let generarTablaUsuarios=()=>{
+  
+  //vaciar tablas si es q hay
+  let $posibleTabla=document.querySelector("#contenedor-usuarios table");
+  if($posibleTabla!=null){
+    $posibleTabla.remove();
+  }
+
+  //creación de tabla
+  let $tabla=document.createElement("TABLE");
+  $tabla.classList.add("table");
+
+  let $thead=$tabla.createTHead();
+  let $row1=$thead.insertRow(-1);
+  $row1.insertCell(-1).textContent="ID";
+  $row1.insertCell(-1).textContent="NOMBRE";
+  $row1.insertCell(-1).textContent="EMAIL";
+  $row1.insertCell(-1).textContent="CONTRASEÑA";
+  $row1.insertCell(-1).textContent="EDITAR";
+  $row1.insertCell(-1).textContent="ELIMINAR";
+
+  //cuerpo de la tabla
+  let $tbody=$tabla.createTBody();
+
+  oNotas.generarFilasUsuarios($tbody);
+
+
+  let $contUsuarios=document.getElementById("contenedor-usuarios");
+
+
+  $contUsuarios.insertBefore($tabla,$contUsuarios.lastElementChild);
+}
+
 //EVENTOS
 
-//REGISTRO
+//registrar usuario
 let $btnRegistrar = document.getElementById("btnRegistrarUsuario");
 
 $btnRegistrar.addEventListener("click", registrarUsuario);
@@ -157,6 +207,9 @@ let $btnCerrarRegistro=document.querySelector("#modalRegistro button");
 
 $btnCerrarRegistro.addEventListener("click", limpiarRegistro);
 
+//borrar usuario
+let $contenedorUsuario=document.getElementById("contenedor-usuarios");
+$contenedorUsuario.addEventListener("click",borrarUsuario);
 
 //LOGIN
 let $btnEntrarLogin = document.getElementById("btnModalLogin");
