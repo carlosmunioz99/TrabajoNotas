@@ -26,7 +26,7 @@ class Notas {
 
     buscarUsuario(sNombreUsuario,sPassword){
         //buscar usuario, false si no lo encuentra, true si sí
-        return false;
+        return true;
     }
 
     modificarUsuario(oUsuario) {
