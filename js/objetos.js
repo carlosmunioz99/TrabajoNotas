@@ -58,6 +58,8 @@ class Notas {
             let $editar=document.createElement("div");
             $editar.classList.add("fondo-editar");
             $editar.dataset.id=u.usuario;
+            $editar.dataset.toggle="modal";
+            $editar.dataset.target="#modalEditarUsuario";
 
             $row.insertCell(-1).appendChild($editar);
 

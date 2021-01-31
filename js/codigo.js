@@ -16,7 +16,7 @@ let registrarUsuario = () => {
 
   if (!oPatron.test(sIdUsuario)) {
     let $smallError=frmRegistro.txtIdUsuario.nextElementSibling;
-    $smallError.textContent="- El id debe estar compuesta por números o letras, entre 5 y 10 caracteres.";
+    $smallError.textContent="- El id debe estar compuesta por números o letras entre 5 y 10 caracteres.";
     bError = true;
   }else{
     let $smallError=frmRegistro.txtIdUsuario.nextElementSibling;
@@ -84,7 +84,7 @@ let registrarUsuario = () => {
 let limpiarRegistro =()=>{
   
   frmRegistro.reset();
-  let vSmallErrores=document.querySelectorAll("#modalRegistro small,#modalRegistro form> div:first-child");
+  let vSmallErrores=document.querySelectorAll("#modalRegistroUsuario small,#modalRegistroUsuario form> div:first-child");
   
   vSmallErrores[0].classList.add("ocultar");
   for(let i=0;i<vSmallErrores.length;i++){
@@ -203,7 +203,7 @@ let $btnRegistrar = document.getElementById("btnRegistrarUsuario");
 
 $btnRegistrar.addEventListener("click", registrarUsuario);
 
-let $btnCerrarRegistro=document.querySelector("#modalRegistro button");
+let $btnCerrarRegistro=document.querySelector("#modalRegistroUsuario button");
 
 $btnCerrarRegistro.addEventListener("click", limpiarRegistro);
 
