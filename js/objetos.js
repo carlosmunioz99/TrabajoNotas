@@ -24,13 +24,31 @@ class Notas {
 
     }
 
-    buscarUsuario(sNombreUsuario,sPassword){
-        //buscar usuario, false si no lo encuentra, true si sí
-        return true;
+    buscarUsuario(sNombreUsuario){
+        
+        let oUsuario=this._usuarios.find(oUser=>oUser.usuario==sNombreUsuario);
+        
+        return oUsuario;
     }
 
     modificarUsuario(oUsuario) {
+        //comprobar que el email no exista. 
+        let bModificado=true;
 
+        if(this._usuarios.some(oU => (oU.email == oUsuario.email) && (oUsuario.usuario != oU.usuario) ))
+        {
+            bModificado = false;
+        }else{
+            let oRefeUsuario=this.buscarUsuario(oUsuario.usuario);
+        
+            oRefeUsuario.email=oUsuario.email;
+            oRefeUsuario.nombre=oUsuario.nombre;
+            oRefeUsuario.contraseña=oUsuario.contraseña;
+        }
+        
+        
+
+        return bModificado;
     }
 
     bajaUsuario(sNombreUsuario) {
@@ -103,8 +121,14 @@ class Usuario {
 
 class Nota
 {
-    constructor(iIdNota, sTitulo, sContenido)
+    constructor(sTitulo, sContenido)
     {
+        if(Nota.contador==undefined){
+            Nota.contador=1;
+         }else{
+            Nota.contador++;  
+         }
+
         this.idNota = iIdNota;
         this.titulo = sTitulo;
         this.contenido = sContenido;
@@ -113,11 +137,17 @@ class Nota
 
 class Grupo 
 {
-    contructor(sIdGrupo, sNombre)
+    contructor(sNombre)
     {
-        this.idGrupo = sIdGrupo;
+        if(Grupo.contador==undefined){
+            Grupo.contador=1;
+         }else{
+            Grupo.contador++;  
+         }
+
+        this.idGrupo = Grupo.contador;
         this.nombre = sNombre;
-        this.usuarios = [];
+        this.notas = [];
     }
 }
 
