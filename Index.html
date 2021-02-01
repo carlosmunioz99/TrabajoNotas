@@ -95,8 +95,9 @@
               <h4>Lista de usuarios</h4>
               <input
                 type="button"
+                class="btn btn-primary"
                 onclick="generarTablaUsuarios();"
-                value="generar"
+                value="Generar"
               />
 
               <button
@@ -118,6 +119,14 @@
               aria-labelledby="nav-profile-tab"
             >
               <h4>Lista de grupos</h4>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modalRegistroGrupos";
+              >
+              Crear grupo
+              </button>
             </div>
 
             <!--CONTENEDOR DE NOTAS-->
@@ -366,7 +375,7 @@
 
                 <input
                   name="txtContraseña"
-                  type="text"
+                  type="password"
                   placeholder="Contraseña"
                   class="form-control input-md"
                 />
@@ -392,6 +401,49 @@
         </div>
       </div>
     </div>
+
+        <!--MODAL AÑADIR GRUPOS-->
+        <div class="modal" tabindex="-1" role="dialog" name="modalRegistroGrupos" id="modalRegistroGrupos">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <form name="frmAñadirGrupo" class="form-horizontal">
+                  <div class="alert ocultar text-center" role="alert"></div>
+
+                  <!-- Text input-->
+                  <div class="form-group">
+                    <label class="control-label" for="txtNombre">Nombre</label>
+                    <input
+                      name="txtNombreGrupo"
+                      type="text"
+                      placeholder="Nombre del grupo"
+                      class="form-control input-md"
+                    />
+                    <small class="form-text text-danger"></small>
+                  </div>
+    
+                  <!-- Text input-->
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Integrantes del grupo</label>
+                    <select multiple class="form-control" name="usuariosGrupos[]" id="usuariosGrupos">
+                      
+                    </select>
+                    <small class="form-text text-danger"></small>
+                  </div>
+
+                  <input
+                  type="button"
+                  class="btn btn-primary"
+                  value="Crear grupo"
+                  id="btnCrearGrupos"
+                  />
+
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

@@ -7,6 +7,10 @@ class Notas {
         this._grupos = [];
     }
 
+    getUsuarios()
+    {
+        return this._usuarios;
+    }
 
     registrarUsuario(oUsuario) 
     {
@@ -24,31 +28,13 @@ class Notas {
 
     }
 
-    buscarUsuario(sNombreUsuario){
-        
-        let oUsuario=this._usuarios.find(oUser=>oUser.usuario==sNombreUsuario);
-        
-        return oUsuario;
+    buscarUsuario(sNombreUsuario,sPassword){
+        //buscar usuario, false si no lo encuentra, true si sí
+        return true;
     }
 
     modificarUsuario(oUsuario) {
-        //comprobar que el email no exista. 
-        let bModificado=true;
 
-        if(this._usuarios.some(oU => (oU.email == oUsuario.email) && (oUsuario.usuario != oU.usuario) ))
-        {
-            bModificado = false;
-        }else{
-            let oRefeUsuario=this.buscarUsuario(oUsuario.usuario);
-        
-            oRefeUsuario.email=oUsuario.email;
-            oRefeUsuario.nombre=oUsuario.nombre;
-            oRefeUsuario.contraseña=oUsuario.contraseña;
-        }
-        
-        
-
-        return bModificado;
     }
 
     bajaUsuario(sNombreUsuario) {
@@ -88,7 +74,10 @@ class Notas {
         }
     }
 
-    altaNota(oNota) {
+
+
+    altaNota(oNota) 
+    {
 
     }
 
@@ -100,7 +89,19 @@ class Notas {
 
     }
 
-    altaGrupo(oGrupo) {
+    altaGrupo(oGrupo) 
+    {
+        let bResultado = true;
+
+        if(this._grupos.some(oG => (oG.nombreGrupo == oGrupo.sNombreGrupo)))
+        {
+            bResultado = false;
+        }
+        else
+        {
+            this._grupos.push(oGrupo);
+        }
+        return bResultado;
 
     }
 
@@ -117,18 +118,13 @@ class Usuario {
         this.nombre = sNombre;
         this.notas = [];
     }
+
 }
 
 class Nota
 {
-    constructor(sTitulo, sContenido)
+    constructor(iIdNota, sTitulo, sContenido)
     {
-        if(Nota.contador==undefined){
-            Nota.contador=1;
-         }else{
-            Nota.contador++;  
-         }
-
         this.idNota = iIdNota;
         this.titulo = sTitulo;
         this.contenido = sContenido;
@@ -137,17 +133,10 @@ class Nota
 
 class Grupo 
 {
-    contructor(sNombre)
+    contructor(sNombreGrupo)
     {
-        if(Grupo.contador==undefined){
-            Grupo.contador=1;
-         }else{
-            Grupo.contador++;  
-         }
-
-        this.idGrupo = Grupo.contador;
-        this.nombre = sNombre;
-        this.notas = [];
+        this.nombreGrupo = sNombreGrupo;
+        this.usuariosGrupo = [];
     }
 }
 
