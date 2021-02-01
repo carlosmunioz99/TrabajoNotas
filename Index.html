@@ -1,35 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <title>Trabajo Grupo 5</title>
+
+<head>
+    <title>POST-IT Web</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="styles.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li>
-            <a
-              href="#"
-              id="btnLogin"
-              name="btnLogin"
-              value="Login"
-              data-toggle="modal"
-              data-target="#modalLogin"
-              >Login</a
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#" id="btnLogin" name="btnLogin" value="Login" data-toggle="modal" data-target="#modalLogin">Login</a
             >
           </li>
           <li>
@@ -92,11 +81,11 @@
               role="tabpanel"
               aria-labelledby="nav-home-tab"
             >
-              <h4>Lista de usuarios</h4>
+              <h4>Lista de Usuarios</h4>
               <input
                 type="button"
                 onclick="generarTablaUsuarios();"
-                value="generar"
+                value="Generar Lista Usuarios"
               />
 
               <button
@@ -117,7 +106,7 @@
               role="tabpanel"
               aria-labelledby="nav-profile-tab"
             >
-              <h4>Lista de grupos</h4>
+              <h4>Lista de Grupos</h4>
             </div>
 
             <!--CONTENEDOR DE NOTAS-->
@@ -127,7 +116,7 @@
               role="tabpanel"
               aria-labelledby="nav-contact-tab"
             >
-              <h4>Lista de notas</h4>
+              <h4>Lista de Notas</h4>
             </div>
           </div>
         </div>
@@ -148,11 +137,11 @@
 
                 <div class="alert text-center ocultar" role="alert"></div>
                 <!-- Text input-->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtNombreUsuario"
+                <div class="form-group text-center">
+                  <label class="col-md-8 control-label" for="txtNombreUsuario"
                     >Nombre de Usuario</label
                   >
-                  <div class="col-md-4">
+                  <div class="col-md-12">
                     <input
                       id="txtNombreUsuario"
                       name="txtNombreUsuario"
@@ -165,11 +154,11 @@
                 </div>
 
                 <!-- Text input-->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtContraseña"
+                <div class="form-group text-center">
+                  <label class="col-md-8 control-label" for="txtContraseña"
                     >Contraseña</label
                   >
-                  <div class="col-md-4">
+                  <div class="col-md-12">
                     <input
                       id="txtContraseña"
                       name="txtContraseña"
@@ -182,12 +171,12 @@
                 </div>
 
                 <!-- Button -->
-                <div class="form-group">
+                <div class="form-group text-right">
                   <label
                     class="col-md-4 control-label"
                     for="btnModalLogin"
                   ></label>
-                  <div class="col-md-4">
+                  <div class="col-md-12">
                     <input
                       type="button"
                       id="btnModalLogin"
@@ -200,7 +189,7 @@
                       type="button"
                       id="btnCerrarModalLogin"
                       name="btnCerrarModalLogin"
-                      class="btn btn-primary"
+                      class="btn btn-danger"
                       value="Cerrar"
                       data-dismiss="modal"
                     />
@@ -296,10 +285,10 @@
             />
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-danger"
               data-dismiss="modal"
             >
-              Close
+              Cerrar
             </button>
           </div>
         </div>
@@ -383,10 +372,10 @@
             />
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-danger"
               data-dismiss="modal"
             >
-              Close
+              Cerrar
             </button>
           </div>
         </div>
