@@ -151,10 +151,6 @@ class Notas {
             $row.insertCell(-1).appendChild($eliminar);
 
         }
-
-
-         
-        
     }
 }
 
