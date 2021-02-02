@@ -28,13 +28,31 @@ class Notas {
 
     }
 
-    buscarUsuario(sNombreUsuario,sPassword){
-        //buscar usuario, false si no lo encuentra, true si sí
-        return true;
+    buscarUsuario(sNombreUsuario){
+        
+        let oUsuario=this._usuarios.find(oUser=>oUser.usuario==sNombreUsuario);
+        
+        return oUsuario;
     }
-
+    
     modificarUsuario(oUsuario) {
+        //comprobar que el email no exista. 
+        let bModificado=true;
 
+        if(this._usuarios.some(oU => (oU.email == oUsuario.email) && (oUsuario.usuario != oU.usuario) ))
+        {
+            bModificado = false;
+        }else{
+            let oRefeUsuario=this.buscarUsuario(oUsuario.usuario);
+        
+            oRefeUsuario.email=oUsuario.email;
+            oRefeUsuario.nombre=oUsuario.nombre;
+            oRefeUsuario.contraseña=oUsuario.contraseña;
+        }
+        
+        
+
+        return bModificado;
     }
 
     bajaUsuario(sNombreUsuario) {
@@ -107,39 +125,29 @@ class Notas {
 
         for(let g of this._grupos)
         {
-            // de un solo grupo
+            // busca todos los usuarios de un grupo
             let listaGruposUsuario=this._usuarioGrupos.filter(oUsuGru=>g.id==oUsuGru.idGrupo);
+            
             let oUsuarios=[];
             for(let i=0;i<listaGruposUsuario.length;i++){
-                oUsuarios.push(listaGruposUsuario[i].);
+                let oUsuario=this.buscarUsuario(listaGruposUsuario[i].idUsuario);
+                oUsuarios.push(oUsuario);
             }
-        }
 
-
-        for(let g of this._grupos)
-        {
-            console.log(g.listaUsuarios);
-            let nombreUsuarios = [];
-            for(let oU of g.listaUsuarios){
-                nombreUsuarios.push(oU.usuario);
-            }
-            //ARREGLAR ESTA PARTE
             let $row=tBody.insertRow(-1); 
-            $row.insertCell(-1).textContent=g.id
-            $row.insertCell(-1).textContent=g.nombreGrupo
-            
+            $row.insertCell(-1).textContent=g.id;
+            $row.insertCell(-1).textContent=g.nombreGrupo;
 
-            //agregar usuarios
             let oLista = document.createElement("ul");
-        for(let i=0;i<nombreUsuarios.length;i++)
-        {
-            console.log(nombreUsuarios[i]);
-            let oElementoList = document.createElement("li");
-            oElementoList.textContent = nombreUsuarios[i];
-            oLista.appendChild(oElementoList);
-        }
 
-        $row.insertCell(-1).appendChild(oLista);
+            for(let i=0;i<oUsuarios.length;i++){
+                let oElementoList = document.createElement("li");
+                oElementoList.textContent = oUsuarios[i].usuario;
+                oLista.appendChild(oElementoList);
+            }
+
+            $row.insertCell(-1).appendChild(oLista);
+
             //editar y eliminar
             let $editar=document.createElement("div");
             $editar.classList.add("fondo-editar");
@@ -153,12 +161,8 @@ class Notas {
             $eliminar.classList.add("fondo-eliminar");
             $eliminar.dataset.id=g.id;
             $row.insertCell(-1).appendChild($eliminar);
+        }         
 
-        }
-
-
-         
-        
     }
 
     altaUsuarioGrupo(oGrupo,oListadoObjetosUsuario){
@@ -208,7 +212,7 @@ class Grupo
         }
         this.id=Grupo.contador;
         this.nombreGrupo = sNombreGrupo;
-        this.listaUsuarios = [];
+        this.notas = [];
     }
 }
 

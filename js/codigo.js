@@ -12,11 +12,11 @@ let registrarUsuario = () => {
   let bError = false;
 
   let sIdUsuario = frmRegistro.txtIdUsuario.value.trim();
-  let oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{5,30}$/;
+  let oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{5,10}$/;
 
   if (!oPatron.test(sIdUsuario)) {
     let $smallError=frmRegistro.txtIdUsuario.nextElementSibling;
-    $smallError.textContent="- El id debe estar compuesta por números o letras entre 5 y 30 caracteres.";
+    $smallError.textContent="- El id debe estar compuesta por números o letras entre 5 y 10 caracteres.";
     bError = true;
   }else{
     let $smallError=frmRegistro.txtIdUsuario.nextElementSibling;
@@ -48,10 +48,10 @@ let registrarUsuario = () => {
   }
 
   let sPasword = frmRegistro.txtContraseña.value;
-  oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,15}$/;
+  oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,10}$/;
   if (!oPatron.test(sPasword)) {
     let $smallError=frmRegistro.txtContraseña.nextElementSibling;
-    $smallError.textContent="- La contraseña debe estar compuesta por números o letras, entre 6 y 15 caracteres.";
+    $smallError.textContent="- La contraseña debe estar compuesta por números o letras, entre 6 y 10 caracteres.";
     bError = true;
   }else{
     let $smallError=frmRegistro.txtContraseña.nextElementSibling;
@@ -87,7 +87,7 @@ let registrarUsuario = () => {
 }
 
 
-let limpiarRegistro =()=>{
+let limpiarRegistroUsuario =()=>{
   
   frmRegistro.reset();
   let vSmallErrores=document.querySelectorAll("#modalRegistroUsuario small,#modalRegistroUsuario form> div:first-child");
@@ -106,67 +106,95 @@ let borrarUsuario=(e)=>{
   }
 }
 
-
-let iniciarSesion=()=>{
-  
-  let sInfo="";
-  let $mensaje=frmLogin.querySelector(".alert");
-  $mensaje.textContent="";
-  let bError = false;
-  let vError=[];
-
-  let sNombreUsuario=frmLogin.txtNombreUsuario.value.trim();
-
-  let oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{5,10}$/;
-   
-
-  
-  if (!oPatron.test(sNombreUsuario)) {
-    vError.push("- Formato de nombre de usuario incorrecto.");
+let copiarUsuarioModalEditar=(e)=>{
+  if(e.target.getAttribute("class")=="fondo-editar"){
+    let sNombreUsuario=e.target.getAttribute("data-id");
     
-    bError = true;
-  }
-
-  let sPasword = frmLogin.txtContraseña.value;
-  oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,10}$/;
-  
-  if (!oPatron.test(sPasword)) {
-    
-    vError.push("- Formato de contraseña incorrecto.");
-    
-    bError = true;
-  }
-  
-  if(!bError){
-    if(oNotas.buscarUsuario(sNombreUsuario,sPasword)){
-
-      frmLogin.submit(); 
-  
-    }else{
-      vError.push("- Nombre de usuario o contraseña incorrectos.");
-      
-      bError=true;
+    let oUsuario=oNotas.buscarUsuario(sNombreUsuario);
+    if(oUsuario!=undefined){
+      let vCampos=frmEdicion.getElementsByTagName("input");
+      vCampos[0].value=oUsuario.nombre;
+      vCampos[1].value=oUsuario.usuario;
+      vCampos[2].value=oUsuario.email;
+      vCampos[3].value=oUsuario.contraseña;
     }
+    
   }
-
-  if(bError){
-    vError.forEach(i=>{
-      let $p=document.createElement("p");
-      $p.textContent=i;
-      $mensaje.appendChild($p);
-    });
-    $mensaje.classList.remove("ocultar");
-    $mensaje.classList.add("alert-danger");
-  }
-  
-  
 }
 
-let limpiarLogin=()=>{
-  let $mensaje=frmLogin.querySelector(".alert");
-  $mensaje.textContent="";
-  $mensaje.classList.add("ocultar");
-  frmLogin.reset();
+
+let editarUsuario=()=>{
+  let bError = false;
+  let sIdUsuario=frmEdicion.txtIdUsuario.value;
+
+
+  let sNombre = frmEdicion.txtNombre.value.trim();
+  let oPatron = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}$/;
+
+  if (!oPatron.test(sNombre)) {
+    let $smallError=frmEdicion.txtNombre.nextElementSibling;
+    $smallError.textContent="- Formato de nombre incorrecto.";
+    bError = true;
+  }else{
+    let $smallError=frmEdicion.txtNombre.nextElementSibling;
+    $smallError.textContent="";
+  }
+
+  let sEmail = frmEdicion.txtMail.value.trim();
+  oPatron = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
+  if (!oPatron.test(sEmail)) {
+    let $smallError=frmEdicion.txtMail.nextElementSibling;
+    $smallError.textContent="- Formato de email incorrecto";
+    bError = true;
+  }else{
+    let $smallError=frmEdicion.txtMail.nextElementSibling;
+    $smallError.textContent="";
+  }
+
+  let sPasword = frmEdicion.txtContraseña.value;
+  oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,10}$/;
+  if (!oPatron.test(sPasword)) {
+    let $smallError=frmEdicion.txtContraseña.nextElementSibling;
+    $smallError.textContent="- La contraseña debe estar compuesta por números o letras, entre 6 y 10 caracteres.";
+    bError = true;
+  }else{
+    let $smallError=frmEdicion.txtContraseña.nextElementSibling;
+    $smallError.textContent="";
+  }
+
+  if (!bError) {
+
+    let oUsuario = new Usuario(sIdUsuario,sPasword,sEmail,sNombre);
+    let $mensaje=frmEdicion.firstElementChild;
+
+    $mensaje.classList.remove("ocultar");
+    
+    
+
+    if(oNotas.modificarUsuario(oUsuario)){
+      $mensaje.textContent="Modificado correctamente.";
+      $mensaje.classList.remove("alert-danger");
+      $mensaje.classList.add("alert-success");
+      generarTablaUsuarios();
+      frmEdicion.reset();
+    }else{
+      $mensaje.textContent="Email ya existe";
+      $mensaje.classList.remove("alert-success");
+      $mensaje.classList.add("alert-danger");
+    }
+
+  } 
+}
+
+
+let limpiarEdicionUsuario=()=>{
+  frmEdicion.reset();
+  let vSmallErrores=document.querySelectorAll("#modalEditarUsuario small,#modalEditarUsuario form> div:first-child");
+  
+  vSmallErrores[0].classList.add("ocultar");
+  for(let i=0;i<vSmallErrores.length;i++){
+    vSmallErrores[i].textContent="";
+  }
 }
 
 let generarTablaUsuarios=()=>{
@@ -347,20 +375,20 @@ $btnRegistrar.addEventListener("click", registrarUsuario);
 
 let $btnCerrarRegistro=document.querySelector("#modalRegistroUsuario button");
 
-$btnCerrarRegistro.addEventListener("click", limpiarRegistro);
+$btnCerrarRegistro.addEventListener("click", limpiarRegistroUsuario);
 
 //borrar usuario
 let $contenedorUsuario=document.getElementById("contenedor-usuarios");
 $contenedorUsuario.addEventListener("click",borrarUsuario);
 
-//LOGIN
-let $btnEntrarLogin = document.getElementById("btnModalLogin");
+//editar usuario
+$contenedorUsuario.addEventListener("click",copiarUsuarioModalEditar);
 
-$btnEntrarLogin.addEventListener("click", iniciarSesion);
+let $btnModificarUsuario=document.getElementById("btnModificarUsuario");
+$btnModificarUsuario.addEventListener("click",editarUsuario);
 
-let $btnCerrarLogin = document.getElementById("btnCerrarModalLogin");
-
-$btnCerrarLogin.addEventListener("click", limpiarLogin);
+let $btnCerrarModificarUsuario=$btnModificarUsuario.nextElementSibling;
+$btnCerrarModificarUsuario.addEventListener("click",limpiarEdicionUsuario);
 
 //GRUPOS//
 let btnAñadirGrupo = document.querySelector("#btnCrearGrupos");
