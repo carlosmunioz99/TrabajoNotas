@@ -108,6 +108,32 @@ class Notas {
     bajaGrupo(oGrupo) {
 
     }
+
+    generarFilasGrupos(tBody)
+    {
+        let $row=tBody.insertRow(-1); 
+        let nombreUsuarios = [];
+        for(let g of this._grupos)
+        {
+            $row.insertCell(-1).textContent=g.nombreGrupo
+            for(let i=0;i<g.listaUsuarios.length;i++)
+            {
+               nombreUsuarios.push(g.listaUsuarios[i].usuario)
+            }
+        }
+
+        let oLista = document.createElement("ul");
+        for(let i=0;i<nombreUsuarios.length;i++)
+        {
+            let oElementoList = document.createElement("li");
+            oElementoList.textContent = nombreUsuarios[i];
+            oLista.appendChild(oElementoList);
+        }
+        $row.insertCell(-1).textContent = oLista;
+    nombreUsuarios = [];
+        
+        console.log(oLista);
+    }
 }
 
 class Usuario {
@@ -133,10 +159,10 @@ class Nota
 
 class Grupo 
 {
-    contructor(sNombreGrupo)
+    constructor(sNombreGrupo, arrlistaUsuarios)
     {
         this.nombreGrupo = sNombreGrupo;
-        this.usuariosGrupo = [];
+        this.listaUsuarios = arrlistaUsuarios;
     }
 }
 

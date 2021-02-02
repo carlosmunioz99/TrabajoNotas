@@ -5,18 +5,18 @@ oNotas.registrarUsuario(new Usuario("pepe123","idvacs","pepe@gmail","Pepe"));
 oNotas.registrarUsuario(new Usuario("juan23","sfef","pepe@gmail","Jaunito"));
 oNotas.registrarUsuario(new Usuario("elmidas2","idvagfddfgcs","elmmidas@gmail","Mid"));
 oNotas.registrarUsuario(new Usuario("estesech","dfg","sech@gmail","Sech"));
-
+oNotas.registrarUsuario(new Usuario("carlos","cmr99","carlos@gmail","cmr1234"));
 
 // Manejadores de eventos.
 let registrarUsuario = () => {
   let bError = false;
 
   let sIdUsuario = frmRegistro.txtIdUsuario.value.trim();
-  let oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{5,10}$/;
+  let oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{5,30}$/;
 
   if (!oPatron.test(sIdUsuario)) {
     let $smallError=frmRegistro.txtIdUsuario.nextElementSibling;
-    $smallError.textContent="- El id debe estar compuesta por números o letras entre 5 y 10 caracteres.";
+    $smallError.textContent="- El id debe estar compuesta por números o letras entre 5 y 30 caracteres.";
     bError = true;
   }else{
     let $smallError=frmRegistro.txtIdUsuario.nextElementSibling;
@@ -48,10 +48,10 @@ let registrarUsuario = () => {
   }
 
   let sPasword = frmRegistro.txtContraseña.value;
-  oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,10}$/;
+  oPatron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{6,15}$/;
   if (!oPatron.test(sPasword)) {
     let $smallError=frmRegistro.txtContraseña.nextElementSibling;
-    $smallError.textContent="- La contraseña debe estar compuesta por números o letras, entre 6 y 10 caracteres.";
+    $smallError.textContent="- La contraseña debe estar compuesta por números o letras, entre 6 y 15 caracteres.";
     bError = true;
   }else{
     let $smallError=frmRegistro.txtContraseña.nextElementSibling;
@@ -70,6 +70,12 @@ let registrarUsuario = () => {
       $mensaje.classList.add("alert-success");
       generarTablaUsuarios();
       frmRegistro.reset();
+      /*AÑADIR USUARIO AL COMBO MULTIPLE DE GRUPOS*/
+      let oLista = document.querySelector("#usuariosGrupos");
+      let oOpcion = document.createElement('option');
+      oOpcion.textContent = oUsuario.usuario;
+      oLista.appendChild(oOpcion);
+
     }else{
       $mensaje.textContent="Nombre de usuario o email ya existen";
       $mensaje.classList.remove("alert-success");
@@ -202,6 +208,19 @@ let generarTablaUsuarios=()=>{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*GRUPOS*/
 
+/**RELLENAR COMBO MULTIPLE DE USUARIOS PARA GRUPOS*/
+
+let oLista = document.querySelector("#usuariosGrupos");
+let listaUsuarios = oNotas.getUsuarios();
+//console.log(listaUsuarios);
+for(let i=0;i<listaUsuarios.length;i++)
+{
+  let oOpcion = document.createElement('option');
+  oOpcion.textContent = listaUsuarios[i].usuario;
+  oLista.appendChild(oOpcion);
+}
+/*****************************************/
+
 
 function validarGrupos()
 {
@@ -224,6 +243,9 @@ function validarGrupos()
   
   let oListadoUsuarios = frmAñadirGrupo.usuariosGrupos;
   let oSeleccionado = oListadoUsuarios.selectedOptions;
+  let nombreSeleccionado = []
+
+
   if(oSeleccionado.length == 0)
   {
     bValido = false;
@@ -234,12 +256,31 @@ function validarGrupos()
   {
     let smallError=frmAñadirGrupo.usuariosGrupos.nextElementSibling;
     smallError.textContent= "";
+    for (let i=0;i<oSeleccionado.length;i++)
+    {
+      nombreSeleccionado.push(oSeleccionado[i].textContent);
+    }
   }
 
   if(bValido)
   {
-    let oGrupo = new Grupo(txtNombreGrupo);
-    console.log(txtNombreGrupo)
+
+    let oListadoUsuarios = oNotas.getUsuarios();
+    let oListadoObjetosUsuario = [];
+//CREO UN ARRAY QUE BUSQUE LOS USUARIOS QUE SE HAN SELECCIONADO EN EL ARRAY DE USUARIO, SI LO ENCUENTRA METE EL OBJETO DE USUARIO//
+    for(let i=0;i<oListadoUsuarios.length;i++)
+    {
+      let nombreAEncontrar = oListadoUsuarios.find(oU => oU.usuario == nombreSeleccionado[i])
+      if(nombreAEncontrar)
+      {
+        oListadoObjetosUsuario.push(nombreAEncontrar);
+      }
+    }
+
+
+    let oGrupo = new Grupo(txtNombreGrupo, oListadoObjetosUsuario);
+
+
     let mensaje=frmAñadirGrupo.firstElementChild;
     mensaje.classList.remove("ocultar");
     if(oNotas.altaGrupo(oGrupo))
@@ -247,6 +288,8 @@ function validarGrupos()
       mensaje.textContent="Grupo creado correctamente.";
       mensaje.classList.remove("alert-danger");
       mensaje.classList.add("alert-success");
+      generarTablaGrupos();
+      frmAñadirGrupo.reset();
     }
     else
     {
@@ -258,18 +301,38 @@ function validarGrupos()
 }
 
 
-/**CREACION DE LISTA USUARIOS PARA GRUPOS*/
+  function generarTablaGrupos()
+  {
+  
+    //vaciar tablas si es q hay
+    let posibleTabla=document.querySelector("#contenedor-grupos table");
+    if(posibleTabla!=null)
+    {
+      posibleTabla.remove();
+    }
+  
+    //creación de tabla
+    let tabla=document.createElement("TABLE");
+    tabla.classList.add("table");
+  
+    let thead=tabla.createTHead();
+    let row1=thead.insertRow(-1);
+    row1.insertCell(-1).textContent="Nombre del Grupo";
+    row1.insertCell(-1).textContent="Lista de usuarios";
+  
+    //cuerpo de la tabla
+    let tbody=tabla.createTBody();
+  
+    oNotas.generarFilasGrupos(tbody);
+  
 
-let oLista = document.querySelector("#usuariosGrupos");
-let listaUsuarios = oNotas.getUsuarios();
-//console.log(listaUsuarios);
-for(let i=0;i<listaUsuarios.length;i++)
-{
-  let oOpcion = document.createElement('option');
-  oOpcion.textContent = listaUsuarios[i].usuario;
-  oLista.appendChild(oOpcion);
-}
-/*****************************************/
+    let contGrupos=document.getElementById("contenedor-grupos");
+  
+  
+    contGrupos.insertBefore(tabla,contGrupos.lastElementChild);
+  }
+
+
 
 
 
@@ -301,6 +364,8 @@ let $btnCerrarLogin = document.getElementById("btnCerrarModalLogin");
 $btnCerrarLogin.addEventListener("click", limpiarLogin);
 
 //GRUPOS//
-let $btnAñadirGrupo = document.querySelector("#btnCrearGrupos");
-$btnAñadirGrupo.addEventListener("click", validarGrupos);
+let btnAñadirGrupo = document.querySelector("#btnCrearGrupos");
+btnAñadirGrupo.addEventListener("click", validarGrupos);
  
+let btnGenerarTablaGrupos = document.querySelector("#generarTablaGrupos");
+btnGenerarTablaGrupos.addEventListener("click", generarTablaGrupos);
