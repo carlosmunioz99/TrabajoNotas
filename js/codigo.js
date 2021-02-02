@@ -317,9 +317,12 @@ function validarGrupos()
   
     let thead=tabla.createTHead();
     let row1=thead.insertRow(-1);
+    row1.insertCell(-1).textContent="Id";
     row1.insertCell(-1).textContent="Nombre del Grupo";
     row1.insertCell(-1).textContent="Lista de usuarios";
-  
+    row1.insertCell(-1).textContent="Editar";
+    row1.insertCell(-1).textContent="Eliminar";
+
     //cuerpo de la tabla
     let tbody=tabla.createTBody();
   

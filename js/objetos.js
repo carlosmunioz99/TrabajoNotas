@@ -122,6 +122,7 @@ class Notas {
             }
             
             let $row=tBody.insertRow(-1); 
+            $row.insertCell(-1).textContent=g.id
             $row.insertCell(-1).textContent=g.nombreGrupo
             
 
@@ -139,7 +140,7 @@ class Notas {
             //editar y eliminar
             let $editar=document.createElement("div");
             $editar.classList.add("fondo-editar");
-            $editar.dataset.id=g.nombreGrupo;
+            $editar.dataset.id=g.id;
             $editar.dataset.toggle="modal";
             $editar.dataset.target="#modalEditarGrupo";
 
@@ -147,7 +148,7 @@ class Notas {
 
             let $eliminar=document.createElement("div");
             $eliminar.classList.add("fondo-eliminar");
-            $eliminar.dataset.id=g.nombreGrupo;
+            $eliminar.dataset.id=g.id;
             $row.insertCell(-1).appendChild($eliminar);
 
         }
@@ -171,9 +172,15 @@ class Usuario {
 
 class Nota
 {
-    constructor(iIdNota, sTitulo, sContenido)
+    constructor(sTitulo, sContenido)
     {
-        this.idNota = iIdNota;
+        if(Nota.contador==undefined){
+            Nota.contador=1;
+        }else{
+            Nota.contador++;
+        }
+
+        this.id = Nota.contador;
         this.titulo = sTitulo;
         this.contenido = sContenido;
     }
@@ -183,6 +190,12 @@ class Grupo
 {
     constructor(sNombreGrupo, arrlistaUsuarios)
     {
+        if(Grupo.contador==undefined){
+            Grupo.contador=1;
+        }else{
+            Grupo.contador++;
+        }
+        this.id=Grupo.contador;
         this.nombreGrupo = sNombreGrupo;
         this.listaUsuarios = arrlistaUsuarios;
     }
