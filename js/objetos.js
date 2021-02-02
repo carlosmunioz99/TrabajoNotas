@@ -109,11 +109,7 @@ class Notas {
 
     altaGrupo(oGrupo) 
     {
-        
         this._grupos.push(oGrupo);
-        
-       
-
     }
 
     bajaGrupo(oGrupo) {
@@ -127,7 +123,6 @@ class Notas {
         {
             // busca todos los usuarios de un grupo
             let listaGruposUsuario=this._usuarioGrupos.filter(oUsuGru=>g.id==oUsuGru.idGrupo);
-            
             let oUsuarios=[];
             for(let i=0;i<listaGruposUsuario.length;i++){
                 let oUsuario=this.buscarUsuario(listaGruposUsuario[i].idUsuario);

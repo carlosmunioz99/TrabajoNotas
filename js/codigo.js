@@ -1,11 +1,35 @@
 "use strict";
 var oNotas = new Notas();
 //usuarios de prueba
-oNotas.registrarUsuario(new Usuario("pepe123","idvacs","pepe@gmail","Pepe"));
-oNotas.registrarUsuario(new Usuario("juan23","sfef","pepe@gmail","Jaunito"));
-oNotas.registrarUsuario(new Usuario("elmidas2","idvagfddfgcs","elmmidas@gmail","Mid"));
-oNotas.registrarUsuario(new Usuario("estesech","dfg","sech@gmail","Sech"));
-oNotas.registrarUsuario(new Usuario("carlos","cmr99","carlos@gmail","cmr1234"));
+let u1=new Usuario("pepe123","idvacs","pepe@gmail","Pepe");
+let u2=new Usuario("juan23","sftref","juan@gmail","Juanito");
+let u3=new Usuario("tostada2","idvagfddfgcs","tostada2@gmail","tostada");
+let u4=new Usuario("tostadora43","dfgef","sech@gmail","tostadora");
+let u5=new Usuario("fulanito25","cmr99d","carlos@gmail","fulano");
+
+oNotas.registrarUsuario(u1);
+oNotas.registrarUsuario(u2);
+oNotas.registrarUsuario(u3);
+oNotas.registrarUsuario(u4);
+oNotas.registrarUsuario(u5);
+
+
+//grupos de prueba
+let g1=new Grupo("grupo1");
+let g2=new Grupo("grupo2");
+let g3=new Grupo("grupo3");
+let g4=new Grupo("grupo4");
+
+oNotas.altaGrupo(g1);
+oNotas.altaGrupo(g2);
+oNotas.altaGrupo(g3);
+oNotas.altaGrupo(g4);
+
+
+oNotas.altaUsuarioGrupo(g1,[u1,u3,u2]);
+oNotas.altaUsuarioGrupo(g2,[u1,u5]);
+oNotas.altaUsuarioGrupo(g3,[u3,u4]);
+oNotas.altaUsuarioGrupo(g4,[u2,u1,u3,u4]);
 
 // Manejadores de eventos.
 let registrarUsuario = () => {
