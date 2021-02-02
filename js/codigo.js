@@ -216,6 +216,7 @@ let listaUsuarios = oNotas.getUsuarios();
 for(let i=0;i<listaUsuarios.length;i++)
 {
   let oOpcion = document.createElement('option');
+  
   oOpcion.textContent = listaUsuarios[i].usuario;
   oLista.appendChild(oOpcion);
 }
@@ -273,30 +274,25 @@ function validarGrupos()
       let nombreAEncontrar = oListadoUsuarios.find(oU => oU.usuario == nombreSeleccionado[i])
       if(nombreAEncontrar)
       {
+        
         oListadoObjetosUsuario.push(nombreAEncontrar);
       }
     }
 
 
-    let oGrupo = new Grupo(txtNombreGrupo, oListadoObjetosUsuario);
-
+    let oGrupo = new Grupo(txtNombreGrupo);
+    oNotas.altaUsuarioGrupo(oGrupo,oListadoObjetosUsuario);
 
     let mensaje=frmAñadirGrupo.firstElementChild;
     mensaje.classList.remove("ocultar");
-    if(oNotas.altaGrupo(oGrupo))
-    {
+    oNotas.altaGrupo(oGrupo)
+    
       mensaje.textContent="Grupo creado correctamente.";
       mensaje.classList.remove("alert-danger");
       mensaje.classList.add("alert-success");
       generarTablaGrupos();
       frmAñadirGrupo.reset();
-    }
-    else
-    {
-      mensaje.textContent="Ese grupo ya esta en nuestra plataforma";
-      mensaje.classList.remove("alert-success");
-      mensaje.classList.add("alert-danger");
-    }
+    
   }
 }
 

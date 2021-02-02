@@ -91,17 +91,10 @@ class Notas {
 
     altaGrupo(oGrupo) 
     {
-        let bResultado = true;
-
-        if(this._grupos.some(oG => (oG.nombreGrupo == oGrupo.sNombreGrupo)))
-        {
-            bResultado = false;
-        }
-        else
-        {
-            this._grupos.push(oGrupo);
-        }
-        return bResultado;
+        
+        this._grupos.push(oGrupo);
+        
+       
 
     }
 
@@ -111,8 +104,18 @@ class Notas {
 
     generarFilasGrupos(tBody)
     {
-        
-        
+
+        for(let g of this._grupos)
+        {
+            // de un solo grupo
+            let listaGruposUsuario=this._usuarioGrupos.filter(oUsuGru=>g.id==oUsuGru.idGrupo);
+            let oUsuarios=[];
+            for(let i=0;i<listaGruposUsuario.length;i++){
+                oUsuarios.push(listaGruposUsuario[i].);
+            }
+        }
+
+
         for(let g of this._grupos)
         {
             console.log(g.listaUsuarios);
@@ -120,7 +123,7 @@ class Notas {
             for(let oU of g.listaUsuarios){
                 nombreUsuarios.push(oU.usuario);
             }
-            
+            //ARREGLAR ESTA PARTE
             let $row=tBody.insertRow(-1); 
             $row.insertCell(-1).textContent=g.id
             $row.insertCell(-1).textContent=g.nombreGrupo
@@ -157,6 +160,14 @@ class Notas {
          
         
     }
+
+    altaUsuarioGrupo(oGrupo,oListadoObjetosUsuario){
+
+        for(let oU of oListadoObjetosUsuario){
+            this._usuarioGrupos.push(new UsuarioGrupo(oU.usuario,oGrupo.id));
+        }
+
+    }
 }
 
 class Usuario {
@@ -188,7 +199,7 @@ class Nota
 
 class Grupo 
 {
-    constructor(sNombreGrupo, arrlistaUsuarios)
+    constructor(sNombreGrupo)
     {
         if(Grupo.contador==undefined){
             Grupo.contador=1;
@@ -197,7 +208,7 @@ class Grupo
         }
         this.id=Grupo.contador;
         this.nombreGrupo = sNombreGrupo;
-        this.listaUsuarios = arrlistaUsuarios;
+        this.listaUsuarios = [];
     }
 }
 
