@@ -136,7 +136,6 @@ class Notas {
         }
 
         $row.insertCell(-1).appendChild(oLista);
-
             //editar y eliminar
             let $editar=document.createElement("div");
             $editar.classList.add("fondo-editar");
