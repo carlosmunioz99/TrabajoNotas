@@ -111,28 +111,51 @@ class Notas {
 
     generarFilasGrupos(tBody)
     {
-        let $row=tBody.insertRow(-1); 
-        let nombreUsuarios = [];
+        
+        
         for(let g of this._grupos)
         {
-            $row.insertCell(-1).textContent=g.nombreGrupo
-            for(let i=0;i<g.listaUsuarios.length;i++)
-            {
-               nombreUsuarios.push(g.listaUsuarios[i].usuario)
+            console.log(g.listaUsuarios);
+            let nombreUsuarios = [];
+            for(let oU of g.listaUsuarios){
+                nombreUsuarios.push(oU.usuario);
             }
-        }
+            
+            let $row=tBody.insertRow(-1); 
+            $row.insertCell(-1).textContent=g.nombreGrupo
+            
 
-        let oLista = document.createElement("ul");
+            //agregar usuarios
+            let oLista = document.createElement("ul");
         for(let i=0;i<nombreUsuarios.length;i++)
         {
+            console.log(nombreUsuarios[i]);
             let oElementoList = document.createElement("li");
             oElementoList.textContent = nombreUsuarios[i];
             oLista.appendChild(oElementoList);
         }
-        $row.insertCell(-1).textContent = oLista;
-    nombreUsuarios = [];
+
+        $row.insertCell(-1).appendChild(oLista);
+
+            //editar y eliminar
+            let $editar=document.createElement("div");
+            $editar.classList.add("fondo-editar");
+            $editar.dataset.id=g.nombreGrupo;
+            $editar.dataset.toggle="modal";
+            $editar.dataset.target="#modalEditarGrupo";
+
+            $row.insertCell(-1).appendChild($editar);
+
+            let $eliminar=document.createElement("div");
+            $eliminar.classList.add("fondo-eliminar");
+            $eliminar.dataset.id=g.nombreGrupo;
+            $row.insertCell(-1).appendChild($eliminar);
+
+        }
+
+
+         
         
-        console.log(oLista);
     }
 }
 
