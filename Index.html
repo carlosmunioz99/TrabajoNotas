@@ -1,140 +1,474 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <title>Trabajo Grupo 5</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
 
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
+  <body>
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="#" id="btnLogin" name="btnLogin" value="Login" data-toggle="modal" data-target="#login">Login</a></li>
-                <li><a href="#" id="btnRegistro" name="btnRegistro" value="Registro" data-toggle="modal" data-target="#registro">Registro</a></li>
-
-            </ul>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
         </div>
+        <ul class="nav navbar-nav">
+          <li>
+            <a
+              href="#"
+              id="btnLogin"
+              name="btnLogin"
+              value="Login"
+              data-toggle="modal"
+              data-target="#modalLogin"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              id="btnRegistro"
+              name="btnRegistro"
+              value="Registro"
+              data-toggle="modal"
+              data-target="#modalRegistroUsuario"
+              >Registro</a
+            >
+          </li>
+        </ul>
+      </div>
     </nav>
 
-
-    <div class="modal" tabindex="-1" role="dialog" id="login">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div id="login">
-                        <form id="frmLogin" class="form-horizontal">
-                            <fieldset>
-                                <!-- Form Name -->
-                                <legend>Login</legend>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtMail">E-Mail</label>
-                                    <div class="col-md-4">
-                                        <input id="txtMail" name="txtMail" type="text" placeholder="Mail" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtContraseña">Contraseña</label>
-                                    <div class="col-md-4">
-                                        <input id="txtContraseña" name="txtContraseña" type="text" placeholder="Contraseña" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-                                <!-- Button -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="btnLogin"></label>
-                                    <div class="col-md-4">
-                                        <input type="button" id="btnLogin" name="btnLogin" class="btn btn-primary" value="Entrar" onclick="" />
-                                        <input type="button" id="btnVolver" name="btnVolver" class="btn btn-primary" value="Cerrar" data-dismiss="modal" />
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a
+                class="nav-item nav-link active"
+                id="nav-home-tab"
+                data-toggle="tab"
+                href="#contenedor-usuarios"
+                role="tab"
+                aria-controls="nav-home"
+                aria-selected="true"
+                >Usuarios</a
+              >
+              <a
+                class="nav-item nav-link"
+                id="nav-profile-tab"
+                data-toggle="tab"
+                href="#contenedor-grupos"
+                role="tab"
+                aria-controls="nav-profile"
+                aria-selected="false"
+                >Grupos</a
+              >
+              <a
+                class="nav-item nav-link"
+                id="nav-contact-tab"
+                data-toggle="tab"
+                href="#contenedor-notas"
+                role="tab"
+                aria-controls="nav-contact"
+                aria-selected="false"
+                >Notas</a
+              >
             </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <!--CONTENEDOR DE USUARIOS-->
+            <div
+              class="tab-pane fade active show p-3"
+              id="contenedor-usuarios"
+              role="tabpanel"
+              aria-labelledby="nav-home-tab"
+            >
+              <h4>Lista de usuarios</h4>
+              <input
+                type="button"
+                class="btn btn-primary"
+                onclick="generarTablaUsuarios();"
+                value="Generar"
+              />
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modalRegistroUsuario"
+              >
+                Registrar Usuario
+              </button>
+            </div>
+            <!--FIN CONTENEDOR USUARIO-->
+
+            <!--CONTENEDOR DE GRUPOS-->
+            <div
+              class="tab-pane fade p-3"
+              id="contenedor-grupos"
+              role="tabpanel"
+              aria-labelledby="nav-home-tab"
+            >
+              <h4>Lista de grupos</h4>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modalRegistroGrupos";
+              >
+              Crear grupo
+              </button>
+
+              <input
+              type="button"
+              class="btn btn-primary"
+              id="generarTablaGrupos"
+
+              value="Generar"
+            />
+            </div>
+
+            <!--CONTENEDOR DE NOTAS-->
+            <div
+              class="tab-pane fade p-3"
+              id="contenedor-notas"
+              role="tabpanel"
+              aria-labelledby="nav-contact-tab"
+            >
+              <h4>Lista de notas</h4>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
+    <!------------------MODALES------------------>
 
+    <!--MODAL LOGIN-->
+    <div class="modal" tabindex="-1" role="dialog" id="modalLogin">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form name="frmLogin" action="notas.html" class="form-horizontal">
+              <fieldset>
+                <!-- Form Name -->
+                <legend>Login</legend>
 
-
-    <div class="modal" tabindex="-1" role="dialog" id="registro">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-
-                <div class="modal-body">
-
-
-                    <div id="registro">
-                        <form id="frmRegistro" class="form-horizontal">
-                            <fieldset>
-                                <!-- Form Name -->
-                                <legend>Registro</legend>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtNombre">Nombre</label>
-                                    <div class="col-md-4">
-                                        <input id="txtNombre" name="txtNombre" type="text" placeholder="Nombre" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtMail">E-Mail</label>
-                                    <div class="col-md-4">
-                                        <input id="txtMail" name="txtMail" type="text" placeholder="Mail" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="txtContraseña">Contraseña</label>
-                                    <div class="col-md-4">
-                                        <input id="txtContraseña" name="txtContraseña" type="text" placeholder="Contraseña" class="form-control input-md" required>
-
-                                    </div>
-                                </div>
-
-
-                                <!-- Button -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="btnLogin"></label>
-                                    <div class="col-md-4">
-                                        <input type="button" id="btnLogin" name="btnLogin" class="btn btn-primary" value="Entrar" onclick="" />
-                                        <input type="button" id="btnVolver" name="btnVolver" class="btn btn-primary" value="Cerrar" data-dismiss="modal" />
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-
-
+                <div class="alert text-center ocultar" role="alert"></div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="txtNombreUsuario"
+                    >Nombre de Usuario</label
+                  >
+                  <div class="col-md-4">
+                    <input
+                      id="txtNombreUsuario"
+                      name="txtNombreUsuario"
+                      type="text"
+                      placeholder="Mail"
+                      class="form-control input-md"
+                      required
+                    />
+                  </div>
                 </div>
 
-            </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="txtContraseña"
+                    >Contraseña</label
+                  >
+                  <div class="col-md-4">
+                    <input
+                      id="txtContraseña"
+                      name="txtContraseña"
+                      type="text"
+                      placeholder="Contraseña"
+                      class="form-control input-md"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                  <label
+                    class="col-md-4 control-label"
+                    for="btnModalLogin"
+                  ></label>
+                  <div class="col-md-4">
+                    <input
+                      type="button"
+                      id="btnModalLogin"
+                      name="btnModalLogin"
+                      class="btn btn-primary"
+                      value="Entrar"
+                      onclick=""
+                    />
+                    <input
+                      type="button"
+                      id="btnCerrarModalLogin"
+                      name="btnCerrarModalLogin"
+                      class="btn btn-primary"
+                      value="Cerrar"
+                      data-dismiss="modal"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
+    <!--MODAL REGISTRO-->
+    <div class="modal" tabindex="-1" role="dialog" id="modalRegistroUsuario">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form name="frmRegistro" class="form-horizontal">
+              <div class="alert ocultar text-center" role="alert"></div>
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtNombre"
+                  >Nombre</label
+                >
+
+                <input
+                  id="txtNombre"
+                  name="txtNombre"
+                  type="text"
+                  placeholder="Nombre"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtIdUsuario"
+                  >Nombre de usuario</label
+                >
+
+                <input
+                  id="txtIdUsuario"
+                  name="txtIdUsuario"
+                  type="text"
+                  placeholder="Id de usuario"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtMail"
+                  >E-Mail</label
+                >
+
+                <input
+                  id="txtMail"
+                  name="txtMail"
+                  type="text"
+                  id="iptRegistroEmail"
+                  placeholder="Mail"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtContraseña"
+                  >Contraseña</label
+                >
+
+                <input
+                  id="txtContraseña"
+                  name="txtContraseña"
+                  id="iptRegistroPassword"
+                  type="password"
+                  placeholder="Contraseña"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <input
+              type="button"
+              class="btn btn-primary"
+              value="Registrarse"
+              id="btnRegistrarUsuario"
+            />
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--MODAL EDITAR USUARIO-->
+    <div class="modal" tabindex="-1" role="dialog" id="modalEditarUsuario">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form name="frmEdicion" class="form-horizontal">
+              <div class="alert ocultar text-center" role="alert"></div>
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtNombre"
+                  >Nombre</label
+                >
+
+                <input
+                  name="txtNombre"
+                  type="text"
+                  placeholder="Nombre"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtIdUsuario"
+                  >Nombre de usuario</label
+                >
+
+                <input
+                  name="txtIdUsuario"
+                  type="text"
+                  placeholder="Id de usuario"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtMail"
+                  >E-Mail</label
+                >
+
+                <input
+                  name="txtMail"
+                  type="text"
+                  placeholder="Mail"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtContraseña"
+                  >Contraseña</label
+                >
+
+                <input
+                  name="txtContraseña"
+                  type="password"
+                  placeholder="Contraseña"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <input
+              type="button"
+              class="btn btn-primary"
+              value="Modificar Usuario"
+              id="btnModificarUsuario"
+            />
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!--MODAL AÑADIR GRUPOS-->
+        <div class="modal" tabindex="-1" role="dialog" name="modalRegistroGrupos" id="modalRegistroGrupos">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <form name="frmAñadirGrupo" class="form-horizontal">
+                  <div class="alert ocultar text-center" role="alert"></div>
+
+                  <!-- Text input-->
+                  <div class="form-group">
+                    <label class="control-label" for="txtNombre">Nombre</label>
+                    <input
+                      name="txtNombreGrupo"
+                      type="text"
+                      placeholder="Nombre del grupo"
+                      class="form-control input-md"
+                    />
+                    <small class="form-text text-danger"></small>
+                  </div>
+    
+                  <!-- Text input-->
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Integrantes del grupo</label>
+                    <select multiple class="form-control" name="usuariosGrupos" id="usuariosGrupos">
+                      
+                    </select>
+                    <small class="form-text text-danger"></small>
+                  </div>
+
+                  <input
+                  type="button"
+                  class="btn btn-primary"
+                  value="Crear grupo"
+                  id="btnCrearGrupos"
+                  />
 
 
-</body>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+  <script src="js/objetos.js"></script>
+  <script src="js/codigo.js"></script>
 </html>
