@@ -1,35 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+
+<head>
     <title>Trabajo Grupo 5</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="styles.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li>
-            <a
-              href="#"
-              id="btnLogin"
-              name="btnLogin"
-              value="Login"
-              data-toggle="modal"
-              data-target="#modalLogin"
-              >Login</a
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#" id="btnLogin" name="btnLogin" value="Login" data-toggle="modal" data-target="#modalLogin">Login</a
             >
           </li>
           <li>
@@ -123,18 +112,19 @@
                 type="button"
                 class="btn btn-primary"
                 data-toggle="modal"
-                data-target="#modalRegistroGrupos";
+                data-target="#modalRegistroGrupos"
+                ;
               >
-              Crear grupo
+                Crear grupo
               </button>
 
               <input
-              type="button"
-              class="btn btn-primary"
-              id="generarTablaGrupos"
-              onclick="generarTablaGrupos();"
-              value="Generar"
-            />
+                type="button"
+                class="btn btn-primary"
+                id="generarTablaGrupos"
+                onclick="generarTablaGrupos();"
+                value="Generar"
+              />
             </div>
 
             <!--CONTENEDOR DE NOTAS-->
@@ -146,15 +136,14 @@
             >
               <h4>Lista de notas</h4>
               <button
-              type="button"
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#modalCreacionNota"
-            >
-            Nueva nota
-            </button>   
-               
-          </div>
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modalCreacionNota"
+              >
+                Nueva nota
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -248,9 +237,7 @@
               <div class="alert ocultar text-center" role="alert"></div>
               <!-- Text input-->
               <div class="form-group">
-                <label class="control-label" for="txtNombre"
-                  >Nombre</label
-                >
+                <label class="control-label" for="txtNombre">Nombre</label>
 
                 <input
                   id="txtNombre"
@@ -280,9 +267,7 @@
 
               <!-- Text input-->
               <div class="form-group">
-                <label class="control-label" for="txtMail"
-                  >E-Mail</label
-                >
+                <label class="control-label" for="txtMail">E-Mail</label>
 
                 <input
                   id="txtMail"
@@ -341,9 +326,7 @@
               <div class="alert ocultar text-center" role="alert"></div>
               <!-- Text input-->
               <div class="form-group">
-                <label class="control-label" for="txtNombre"
-                  >Nombre</label
-                >
+                <label class="control-label" for="txtNombre">Nombre</label>
 
                 <input
                   name="txtNombre"
@@ -371,9 +354,7 @@
 
               <!-- Text input-->
               <div class="form-group">
-                <label class="control-label" for="txtMail"
-                  >E-Mail</label
-                >
+                <label class="control-label" for="txtMail">E-Mail</label>
 
                 <input
                   name="txtMail"
@@ -419,108 +400,196 @@
       </div>
     </div>
 
-        <!--MODAL AÑADIR GRUPOS-->
-        <div class="modal" tabindex="-1" role="dialog" name="modalRegistroGrupos" id="modalRegistroGrupos">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-body">
-                <form name="frmAñadirGrupo" class="form-horizontal">
-                  <div class="alert ocultar text-center" role="alert"></div>
+    <!--MODAL AÑADIR GRUPOS-->
+    <div
+      class="modal"
+      tabindex="-1"
+      role="dialog"
+      name="modalRegistroGrupos"
+      id="modalRegistroGrupos"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form name="frmAñadirGrupo" class="form-horizontal">
+              <div class="alert ocultar text-center" role="alert"></div>
 
-                  <!-- Text input-->
-                  <div class="form-group">
-                    <label class="control-label" for="txtNombre">Nombre</label>
-                    <input
-                      name="txtNombreGrupo"
-                      type="text"
-                      placeholder="Nombre del grupo"
-                      class="form-control input-md"
-                    />
-                    <small class="form-text text-danger"></small>
-                  </div>
-    
-                  <!-- Text input-->
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect2">Integrantes del grupo</label>
-                    <select multiple class="form-control" name="usuariosGrupos" id="usuariosGrupos">
-                      
-                    </select>
-                    <small class="form-text text-danger"></small>
-                  </div>
-
-                  <input
-                  type="button"
-                  class="btn btn-primary"
-                  value="Crear grupo"
-                  id="btnCrearGrupos"
-                  />
-
-
-                </form>
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtNombre">Nombre</label>
+                <input
+                  name="txtNombreGrupo"
+                  type="text"
+                  placeholder="Nombre del grupo"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
               </div>
-            </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label for="exampleFormControlSelect2"
+                  >Integrantes del grupo</label
+                >
+                <select
+                  multiple
+                  class="form-control"
+                  name="usuariosGrupos"
+                  id="usuariosGrupos"
+                ></select>
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="Crear grupo"
+                id="btnCrearGrupos"
+              />
+            </form>
           </div>
         </div>
+      </div>
+    </div>
 
-         <!--MODAL AÑADIR GRUPOS-->
-         <div class="modal" tabindex="-1" role="dialog" name="modalCreacionNota" id="modalCreacionNota">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-body">
-                <h3>Nueva nota</h3>
-                <form name="frmNuevaNota" class="form-horizontal">
-                  <div class="alert ocultar text-center" role="alert"></div>
+    <!--MODAL AÑADIR GRUPOS-->
+    <div
+      class="modal"
+      tabindex="-1"
+      role="dialog"
+      name="modalCreacionNota"
+      id="modalCreacionNota"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h3>Nueva nota</h3>
+            <form name="frmNuevaNota" class="form-horizontal">
+              <div class="alert ocultar text-center" role="alert"></div>
 
-                  <!-- Text input-->
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="control-label" for="txtTituloNota">Título</label>
+                <input
+                  name="txtTituloNota"
+                  type="text"
+                  placeholder="Título de la nota"
+                  id="txtTituloNota"
+                  class="form-control input-md"
+                />
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label for="contenidoNota">Contenido</label>
+                <textarea
+                  class="form-control"
+                  id="contenidoNota"
+                  rows="3"
+                ></textarea>
+                <small class="form-text text-danger"></small>
+              </div>
+
+              <!--COLLAPSABLE-->
+
+              <p>Pertenece a:</p>
+
+              <div class="list-group" id="myList" role="tablist">
+                <a
+                  class="list-group-item list-group-item-action active"
+                  data-toggle="list"
+                  href="#UsuarioEnlace"
+                  role="tab"
+                  >Usuario</a
+                >
+                <a
+                  class="list-group-item list-group-item-action"
+                  data-toggle="list"
+                  href="#GrupoEnlace"
+                  role="tab"
+                  >Grupo</a
+                >
+              </div>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div class="tab-pane active" id="UsuarioEnlace" role="tabpanel">
                   <div class="form-group">
-                    <label class="control-label" for="txtTituloNota">Título</label>
-                    <input
-                      name="txtTituloNota"
-                      type="text"
-                      placeholder="Título de la nota"
-                      id="txtTituloNota"
-                      class="form-control input-md"
-                    />
-                    <small class="form-text text-danger"></small>
-                  </div>
-    
-                  <!-- Text input-->
-                  <div class="form-group">
-                    <label for="contenidoNota">Contenido</label>
-                    <textarea  class="form-control" id="contenidoNota" rows="3"></textarea>
-                    <small class="form-text text-danger"></small>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="usuarioPropietario">Pertenece a: </label>
-                    <select class="form-control" name="usuarioPropietario" id="usuarioPropietario" >
+                    <label for="usuarioPropietario">Usuario: </label>
+                    <select
+                      class="form-control"
+                      name="usuarioPropietario"
+                      id="usuarioPropietario"
+                    >
                       <option selected>Escoja un usuario</option>
                     </select>
                     <small class="form-text text-danger"></small>
                   </div>
-                  <p>Prioridad: </p>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radioPrioridad" id="radioAlta" value="alta">
-                    <label class="form-check-label" for="inlineRadio1">Alta</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radioPrioridad" id="radioMedia" value="media">
-                    <label class="form-check-label" for="inlineRadio2">Media</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radioPrioridad" id="radioBaja" value="baja">
-                    <label class="form-check-label" for="inlineRadio3">Baja</label>
-                  </div>
-                 
-                  <div>
-                    <input type="button" class="btn btn-primary" value="Añadir nota" id="btnCrearNota" name="btnCrearNota"/>
-                  </div>
+                </div>
 
-                </form>
+                <div class="tab-pane" id="GrupoEnlace" role="tabpanel">
+                  <div class="form-group">
+                    <label for="grupoPropietario">Grupo: </label>
+                    <select
+                      class="form-control"
+                      name="grupoPropietario"
+                      id="grupoPropietario"
+                    >
+                      <option selected>Escoja un Grupo</option>
+                    </select>
+                    <small class="form-text text-danger"></small>
+                  </div>
+                </div>
               </div>
-            </div>
+              <!--FIN COLLAPSABLE-->
+
+              <p>Prioridad:</p>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="radioPrioridad"
+                  id="radioAlta"
+                  value="alta"
+                />
+                <label class="form-check-label" for="inlineRadio1">Alta</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="radioPrioridad"
+                  id="radioMedia"
+                  value="media"
+                />
+                <label class="form-check-label" for="inlineRadio2">Media</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="radioPrioridad"
+                  id="radioBaja"
+                  value="baja"
+                />
+                <label class="form-check-label" for="inlineRadio3">Baja</label>
+              </div>
+
+              <div>
+                <input
+                  type="button"
+                  class="btn btn-primary"
+                  value="Añadir nota"
+                  id="btnCrearNota"
+                  name="btnCrearNota"
+                />
+              </div>
+            </form>
           </div>
         </div>
+      </div>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
