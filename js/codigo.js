@@ -334,8 +334,75 @@ function validarGrupos()
     contGrupos.insertBefore(tabla,contGrupos.lastElementChild);
   }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*NOTAS*/
+/**RELLENAR COMBO MULTIPLE DE USUARIOS PARA NOTAS*/
+oLista = document.querySelector("#usuarioPropietario");
+listaUsuarios = oNotas.getUsuarios();
+//console.log(listaUsuarios);
+for(let i=0;i<listaUsuarios.length;i++)
+{
+  let oOpcion = document.createElement('option');
+  oOpcion.textContent = listaUsuarios[i].usuario;
+  oLista.appendChild(oOpcion);
+}
+
+function validarNota()
+{
+  let bValido = true;
+  let txtTituloNota = document.querySelector("#txtTituloNota");
+  let regExp = /[a-zA-Z0-9\s]{4,50}/;
+
+  if(!regExp.test(txtTituloNota))
+  {
+    bValido = false;
+    let smallError=frmNuevaNota.txtTituloNota.nextElementSibling;
+    smallError.textContent= "Formato de título incorrecto, entre 4 y 50 caracteres";
+  }
+  else
+  {
+    let smallError=frmNuevaNota.txtTituloNota.nextElementSibling;
+    smallError.textContent= "";
+  }
 
 
+  let txtContenidoNota = document.querySelector("#contenidoNota");
+  if(txtContenidoNota.value == "")
+  {
+    bValido = false;
+    let smallError=frmNuevaNota.contenidoNota.nextElementSibling;
+    smallError.textContent= "Introduzca algún contenido en la nota";
+  }
+  else
+  {
+    let smallError=frmNuevaNota.contenidoNota.nextElementSibling;
+    smallError.textContent= "";
+  }
+
+
+  let usuarioPropietario = document.querySelector("#usuarioPropietario");
+  if(usuarioPropietario.selectedIndex == 0)
+  {
+    bValido = false;
+    let smallError=frmNuevaNota.usuarioPropietario.nextElementSibling;
+    smallError.textContent= "Seleccione un usuario para la nota";
+  }
+  else
+  {
+    let smallError=frmNuevaNota.contenidoNota.nextElementSibling;
+    smallError.textContent= "";
+  }
+
+  if(bValido)
+  {
+    
+  }
+
+
+}
 
 
 
@@ -371,3 +438,9 @@ btnAñadirGrupo.addEventListener("click", validarGrupos);
  
 let btnGenerarTablaGrupos = document.querySelector("#generarTablaGrupos");
 btnGenerarTablaGrupos.addEventListener("click", generarTablaGrupos);
+
+
+
+//NOTAS//
+let btnCrearNota = document.querySelector("#btnCrearNota");
+btnCrearNota.addEventListener("click", validarNota);

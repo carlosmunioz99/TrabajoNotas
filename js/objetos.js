@@ -167,11 +167,13 @@ class Usuario {
 
 class Nota
 {
-    constructor(iIdNota, sTitulo, sContenido)
+    constructor(iIdNota, sTitulo, sContenido, sPrioridad)
     {
         this.idNota = iIdNota;
         this.titulo = sTitulo;
         this.contenido = sContenido;
+        this.prioridad = sPrioridad;
+
     }
 }
 
