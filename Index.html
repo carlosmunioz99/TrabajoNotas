@@ -161,7 +161,9 @@
               >
               Notas por usuario
               </button>
+
             </div>
+            <div id="imprimeNotas"></div>
           </div>
         </div>
       </div>
@@ -506,22 +508,27 @@
                             </select>
                             <small class="form-text text-danger"></small>
                           </div>
-                          <p>Prioridad: </p>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="radio" id="radio" value="alta">
-                            <label class="form-check-label" for="inlineRadio1">Alta</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="radio" id="radio" value="media">
-                            <label class="form-check-label" for="inlineRadio2">Media</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="radio" id="radio" value="baja" selected>
-                            <label class="form-check-label" for="inlineRadio3">Baja</label>
-                          </div>
-                          <div>
-                            <input type="button" class="btn btn-primary" value="Añadir nota" id="btnCrearNota" name="btnCrearNota"/>
-                          </div>
+
+                          
+                          <div name="rbPrioridad" id="rbPrioridad">
+                            <p>Prioridad: </p>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radio" id="radio" value="alta">
+                              <label class="form-check-label" for="inlineRadio1">Alta</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radio" id="radio" value="media">
+                              <label class="form-check-label" for="inlineRadio2">Media</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radio" id="radio" value="baja" selected>
+                              <label class="form-check-label" for="inlineRadio3">Baja</label>
+                            </div>
+                        </div>
+                        <small class="form-text text-danger"></small>
+                        <div>
+                          <input type="button" class="btn btn-primary" value="Añadir nota" id="btnCrearNota" name="btnCrearNota"/>
+                        </div>
         
                         </form>
                       </div>

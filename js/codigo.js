@@ -397,8 +397,19 @@ function validarNota()
     smallError.textContent= "";
   }
 
+  let divPrioridad = document.querySelector("#rbPrioridad");
   let radioPrioridad = frmNuevaNota.radio.value;
-
+  if(radioPrioridad == "")
+  {
+    bValido = false;
+    let smallError=divPrioridad.nextElementSibling;
+    smallError.textContent= "Seleccione una prioridad";
+  }
+  else
+  {
+    let smallError=divPrioridad.nextElementSibling;
+    smallError.textContent= "";
+  }
 
   if(bValido)
   {
@@ -450,17 +461,37 @@ function generarNotas()
       let smallError=txtUsuarioAbuscar.nextElementSibling;
       smallError.textContent= "";
 
+      let contenedor = document.querySelector("#imprimeNotas");
+
+      let numHijos = contenedor.children;
+      for(let i=0;i<numHijos.length;i++)
+      {
+        contenedor.removeChild(numHijos[i])
+      }
+      
       
       for(let i=0;i<usuarioABuscar.notas.length;i++)
       {
-        Nota.contenidoNota(usuarioABuscar.notas[i]);
+        Nota.contenidoNota(usuarioABuscar.notas[i],  usuarioABuscar.usuario);
       }
-      //console.log(usuarioABuscar.notas);
-
-
     }
   }
 
+  function borrarNota()
+  {
+    let oContenedorNota = document.querySelector(".card");
+    let oBotonBorrar = document.getElementById("botonEliminarNota");
+    let padre = oBotonBorrar.parentElement.parentElement;
+    let idNotaABorrar = oContenedorNota.dataset.idNota
+    let idUsuario = oContenedorNota.dataset.idUsuario;
+    console.log(idUsuario);
+    let divPrincipal = document.querySelector("#imprimeNotas");
+    if(oNotas.eliminarNota(idNotaABorrar, idUsuario))
+    {
+      divPrincipal.removeChild(padre)
+    }
+    
+  }
 
 
 
@@ -505,3 +536,4 @@ btnCrearNota.addEventListener("click", validarNota);
 
 let btnNotasPorUsuario = document.querySelector("#btnBuscarNotas");
 btnNotasPorUsuario.addEventListener("click", generarNotas);
+

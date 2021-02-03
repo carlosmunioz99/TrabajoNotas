@@ -99,7 +99,21 @@ class Notas {
 
     }
 
-    bajaNota(oNota) {
+    eliminarNota(idNota, idUsuario) 
+    {
+        let notaABuscar = this._notas.find(oN=>oN.idNota == idNota);
+        let usuarioABuscar = this._usuarios.find(oU => oU.usuario == idUsuario);
+
+        let notaABuscarDelUsuario = usuarioABuscar.notas.find(oN=>oN.idNota == idNota);
+
+        removeItemFromArr( usuarioABuscar.notas, notaABuscarDelUsuario);
+
+        removeItemFromArr( this._notas, notaABuscar );
+        function removeItemFromArr ( arr, item ) {
+            var i = arr.indexOf( item );
+            arr.splice( i, 1 );
+        }
+        return true;
 
     }
 
@@ -190,14 +204,17 @@ class Nota
         this.usuario = oUsuario;
     }
     
-    static contenidoNota(oNota)
+    static contenidoNota(oNota, idUsuario)
     {
-        let oDivNota = document.createElement('div')
+        let oDivNota = document.createElement('div');
         oDivNota.setAttribute("class", "card");
+        oDivNota.dataset.idNota=oNota.idNota;
+        oDivNota.dataset.idUsuario=idUsuario;
+        console.log(oNota.idNota);
 
         let notaContenido = document.createElement('div');
         notaContenido.setAttribute("class", "card-body");
-        let oEncabezado = document.createElement('h5');
+        let oEncabezado = document.createElement('h4');
         oEncabezado.setAttribute("class", "card-title");
         oEncabezado.textContent = oNota.titulo;
 
@@ -207,24 +224,49 @@ class Nota
 
         oDivNota.style.width = "18rem";
         oDivNota.style.height= "300px";
+        oDivNota.style.margin = "50px";
+        oDivNota.style.float = "left";
         
+        let oBoton = document.createElement("button");
+        oBoton.setAttribute("type", "button");
+        oBoton.setAttribute("class", "btn btn-primary");
+        oBoton.setAttribute("id", "botonEliminarNota");
+        oBoton.style.borderColor="#000000";
+        oBoton.style.color="#000000";
+        oBoton.style.position="absolute";
+        oBoton.style.bottom="5px";
+        oBoton.style.left="5px";
+
+        oBoton.addEventListener("click", borrarNota);
+        //oBoton.style.right="0";
+
+        let simbolo = document.createElement("img");
+        simbolo.src="./img/eliminar.png";
+        oBoton.appendChild(simbolo);
+
+
         if(oNota.prioridad == "alta")
         {
-            oDivNota.style.backgroundColor = "red";
+            oDivNota.style.backgroundColor = "#ff5555";
+            oBoton.style.backgroundColor="#ff5555";
         }
         if(oNota.prioridad == "media")
         {
-            oDivNota.style.backgroundColor = "yellow";
+            oDivNota.style.backgroundColor = "#ffd88a";
+            oBoton.style.backgroundColor="#ffd88a";
         }
         if(oNota.prioridad == "baja")
         {
-            oDivNota.style.backgroundColor = "green";
+            oDivNota.style.backgroundColor = "#b7ff8a";
+            oBoton.style.backgroundColor="#b7ff8a";
         }
-        let contenedor = document.querySelector("#contenedor-notas");
-        contenedor.appendChild(oDivNota);
+        let oContenedor = document.querySelector("#imprimeNotas");
+
+        oContenedor.appendChild(oDivNota);
         oDivNota.appendChild(notaContenido);
         notaContenido.appendChild(oEncabezado)
         notaContenido.appendChild(oContenido);
+        notaContenido.appendChild(oBoton)
     }
 }
 
