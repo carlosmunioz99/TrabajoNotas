@@ -190,16 +190,23 @@ class Nota
         this.usuario = oUsuario;
     }
     
-    contenidoNota(oNota)
+    static contenidoNota(oNota)
     {
         let oDivNota = document.createElement('div')
-        let oEncabezado = document.createElement('h3');
+        oDivNota.setAttribute("class", "card");
+
+        let notaContenido = document.createElement('div');
+        notaContenido.setAttribute("class", "card-body");
+        let oEncabezado = document.createElement('h5');
+        oEncabezado.setAttribute("class", "card-title");
         oEncabezado.textContent = oNota.titulo;
+
         let oContenido = document.createElement('p');
+        oContenido.setAttribute("class", "card-text")
         oContenido.textContent = oNota.contenido;
 
-        oDivNota.style.width = "100px";
-        oDivNota.style.height= "200px";
+        oDivNota.style.width = "18rem";
+        oDivNota.style.height= "300px";
         
         if(oNota.prioridad == "alta")
         {
@@ -213,8 +220,11 @@ class Nota
         {
             oDivNota.style.backgroundColor = "green";
         }
-        oDivNota.appendChild(oEncabezado);
-        oDivNota.appendChild(oContenido);
+        let contenedor = document.querySelector("#contenedor-notas");
+        contenedor.appendChild(oDivNota);
+        oDivNota.appendChild(notaContenido);
+        notaContenido.appendChild(oEncabezado)
+        notaContenido.appendChild(oContenido);
     }
 }
 
