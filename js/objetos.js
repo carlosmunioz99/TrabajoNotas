@@ -78,6 +78,20 @@ class Notas {
 
     altaNota(oNota) 
     {
+        let bResultado = true;
+        if(this._notas.some(oN => (oN.idNota == oNota.idNota)))
+        {
+            bResultado = false;
+        }
+        else
+        {
+            this._notas.push(oNota);
+            let listaUsuarios = this.getUsuarios();
+            let usuarioABuscar = listaUsuarios.find(oU => oU.usuario == oNota.usuario.usuario)
+            usuarioABuscar.notas.push(oNota);
+            console.log(usuarioABuscar);
+        }
+        return bResultado;
 
     }
 
@@ -167,13 +181,40 @@ class Usuario {
 
 class Nota
 {
-    constructor(iIdNota, sTitulo, sContenido, sPrioridad)
+    constructor(iIdNota, sTitulo, sContenido, sPrioridad, oUsuario)
     {
         this.idNota = iIdNota;
         this.titulo = sTitulo;
         this.contenido = sContenido;
         this.prioridad = sPrioridad;
+        this.usuario = oUsuario;
+    }
+    
+    contenidoNota(oNota)
+    {
+        let oDivNota = document.createElement('div')
+        let oEncabezado = document.createElement('h3');
+        oEncabezado.textContent = oNota.titulo;
+        let oContenido = document.createElement('p');
+        oContenido.textContent = oNota.contenido;
 
+        oDivNota.style.width = "100px";
+        oDivNota.style.height= "200px";
+        
+        if(oNota.prioridad == "alta")
+        {
+            oDivNota.style.backgroundColor = "red";
+        }
+        if(oNota.prioridad == "media")
+        {
+            oDivNota.style.backgroundColor = "yellow";
+        }
+        if(oNota.prioridad == "baja")
+        {
+            oDivNota.style.backgroundColor = "green";
+        }
+        oDivNota.appendChild(oEncabezado);
+        oDivNota.appendChild(oContenido);
     }
 }
 

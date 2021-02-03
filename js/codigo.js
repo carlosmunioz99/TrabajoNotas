@@ -7,6 +7,7 @@ oNotas.registrarUsuario(new Usuario("elmidas2","idvagfddfgcs","elmmidas@gmail","
 oNotas.registrarUsuario(new Usuario("estesech","dfg","sech@gmail","Sech"));
 oNotas.registrarUsuario(new Usuario("carlos","cmr99","carlos@gmail","cmr1234"));
 
+
 // Manejadores de eventos.
 let registrarUsuario = () => {
   let bError = false;
@@ -356,7 +357,7 @@ function validarNota()
   let txtTituloNota = document.querySelector("#txtTituloNota");
   let regExp = /[a-zA-Z0-9\s]{4,50}/;
 
-  if(!regExp.test(txtTituloNota))
+  if(!regExp.test(txtTituloNota.value))
   {
     bValido = false;
     let smallError=frmNuevaNota.txtTituloNota.nextElementSibling;
@@ -396,13 +397,69 @@ function validarNota()
     smallError.textContent= "";
   }
 
+  let radioPrioridad = frmNuevaNota.radio.value;
+
+
   if(bValido)
   {
-    
+    let oListadoUsuarios = oNotas.getUsuarios();
+    let numero = random(10, 10000)
+    let usuarioABuscar = oListadoUsuarios.find(oU => oU.usuario == usuarioPropietario.value)
+    let oNota = new Nota(numero, txtTituloNota.value, txtContenidoNota.value, radioPrioridad, usuarioABuscar);
+
+
+    let mensaje=frmNuevaNota.firstElementChild;
+    mensaje.classList.remove("ocultar");
+    if(oNotas.altaNota(oNota))
+    {
+      mensaje.textContent="Nota creada correctamente.";
+      mensaje.classList.remove("alert-danger");
+      mensaje.classList.add("alert-success");
+      generarTablaGrupos();
+      frmNuevaNota.reset();
+    }
+    else
+    {
+      mensaje.textContent="Error al crear la nota, intentelo de nuevo";
+      mensaje.classList.remove("alert-success");
+      mensaje.classList.add("alert-danger");
+    }
   }
 
+  function random(min, max) 
+  {
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+  }
 
 }
+
+
+function generarNotas()
+  {
+    let txtUsuarioAbuscar = document.querySelector("#txtUsuarioABuscar");
+    //console.log(txtUsuarioAbuscar);
+    let oListadoUsuarios = oNotas.getUsuarios();
+    let usuarioABuscar = oListadoUsuarios.find(oU => oU.usuario == txtUsuarioAbuscar.value)
+    if(!usuarioABuscar)
+    {
+      let smallError=txtUsuarioAbuscar.nextElementSibling;
+      smallError.textContent= "El usuario introducido no existe";
+    }
+    else
+    {
+      let smallError=txtUsuarioAbuscar.nextElementSibling;
+      smallError.textContent= "";
+
+      
+      for(let i=0;i<usuarioABuscar.notas.length;i++)
+      {
+        Nota.contenidoNota(usuarioABuscar.notas[i]);
+      }
+      //console.log(usuarioABuscar.notas);
+
+
+    }
+  }
 
 
 
@@ -444,3 +501,7 @@ btnGenerarTablaGrupos.addEventListener("click", generarTablaGrupos);
 //NOTAS//
 let btnCrearNota = document.querySelector("#btnCrearNota");
 btnCrearNota.addEventListener("click", validarNota);
+
+
+let btnNotasPorUsuario = document.querySelector("#btnBuscarNotas");
+btnNotasPorUsuario.addEventListener("click", generarNotas);
