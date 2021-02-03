@@ -7,6 +7,7 @@ oNotas.registrarUsuario(new Usuario("elmidas2","idvagfddfgcs","elmmidas@gmail","
 oNotas.registrarUsuario(new Usuario("estesech","dfg","sech@gmail","Sech"));
 oNotas.registrarUsuario(new Usuario("carlos","cmr99","carlos@gmail","cmr1234"));
 
+
 // Manejadores de eventos.
 let registrarUsuario = () => {
   let bError = false;
@@ -334,9 +335,163 @@ function validarGrupos()
     contGrupos.insertBefore(tabla,contGrupos.lastElementChild);
   }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*NOTAS*/
+/**RELLENAR COMBO MULTIPLE DE USUARIOS PARA NOTAS*/
+oLista = document.querySelector("#usuarioPropietario");
+listaUsuarios = oNotas.getUsuarios();
+//console.log(listaUsuarios);
+for(let i=0;i<listaUsuarios.length;i++)
+{
+  let oOpcion = document.createElement('option');
+  oOpcion.textContent = listaUsuarios[i].usuario;
+  oLista.appendChild(oOpcion);
+}
+
+function validarNota()
+{
+  let bValido = true;
+  let txtTituloNota = document.querySelector("#txtTituloNota");
+  let regExp = /[a-zA-Z0-9\s]{4,50}/;
+
+  if(!regExp.test(txtTituloNota.value))
+  {
+    bValido = false;
+    let smallError=frmNuevaNota.txtTituloNota.nextElementSibling;
+    smallError.textContent= "Formato de título incorrecto, entre 4 y 50 caracteres";
+  }
+  else
+  {
+    let smallError=frmNuevaNota.txtTituloNota.nextElementSibling;
+    smallError.textContent= "";
+  }
 
 
+  let txtContenidoNota = document.querySelector("#contenidoNota");
+  if(txtContenidoNota.value == "")
+  {
+    bValido = false;
+    let smallError=frmNuevaNota.contenidoNota.nextElementSibling;
+    smallError.textContent= "Introduzca algún contenido en la nota";
+  }
+  else
+  {
+    let smallError=frmNuevaNota.contenidoNota.nextElementSibling;
+    smallError.textContent= "";
+  }
 
+
+  let usuarioPropietario = document.querySelector("#usuarioPropietario");
+  if(usuarioPropietario.selectedIndex == 0)
+  {
+    bValido = false;
+    let smallError=frmNuevaNota.usuarioPropietario.nextElementSibling;
+    smallError.textContent= "Seleccione un usuario para la nota";
+  }
+  else
+  {
+    let smallError=frmNuevaNota.contenidoNota.nextElementSibling;
+    smallError.textContent= "";
+  }
+
+  let divPrioridad = document.querySelector("#rbPrioridad");
+  let radioPrioridad = frmNuevaNota.radio.value;
+  if(radioPrioridad == "")
+  {
+    bValido = false;
+    let smallError=divPrioridad.nextElementSibling;
+    smallError.textContent= "Seleccione una prioridad";
+  }
+  else
+  {
+    let smallError=divPrioridad.nextElementSibling;
+    smallError.textContent= "";
+  }
+
+  if(bValido)
+  {
+    let oListadoUsuarios = oNotas.getUsuarios();
+    let numero = random(10, 10000)
+    let usuarioABuscar = oListadoUsuarios.find(oU => oU.usuario == usuarioPropietario.value)
+    let oNota = new Nota(numero, txtTituloNota.value, txtContenidoNota.value, radioPrioridad, usuarioABuscar);
+
+
+    let mensaje=frmNuevaNota.firstElementChild;
+    mensaje.classList.remove("ocultar");
+    if(oNotas.altaNota(oNota))
+    {
+      mensaje.textContent="Nota creada correctamente.";
+      mensaje.classList.remove("alert-danger");
+      mensaje.classList.add("alert-success");
+      generarTablaGrupos();
+      frmNuevaNota.reset();
+    }
+    else
+    {
+      mensaje.textContent="Error al crear la nota, intentelo de nuevo";
+      mensaje.classList.remove("alert-success");
+      mensaje.classList.add("alert-danger");
+    }
+  }
+
+  function random(min, max) 
+  {
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+  }
+
+}
+
+
+function generarNotas()
+  {
+    let txtUsuarioAbuscar = document.querySelector("#txtUsuarioABuscar");
+    //console.log(txtUsuarioAbuscar);
+    let oListadoUsuarios = oNotas.getUsuarios();
+    let usuarioABuscar = oListadoUsuarios.find(oU => oU.usuario == txtUsuarioAbuscar.value)
+    if(!usuarioABuscar)
+    {
+      let smallError=txtUsuarioAbuscar.nextElementSibling;
+      smallError.textContent= "El usuario introducido no existe";
+    }
+    else
+    {
+      let smallError=txtUsuarioAbuscar.nextElementSibling;
+      smallError.textContent= "";
+
+      let contenedor = document.querySelector("#imprimeNotas");
+
+      let numHijos = contenedor.children;
+      for(let i=0;i<numHijos.length;i++)
+      {
+        contenedor.removeChild(numHijos[i])
+      }
+      
+      
+      for(let i=0;i<usuarioABuscar.notas.length;i++)
+      {
+        Nota.contenidoNota(usuarioABuscar.notas[i],  usuarioABuscar.usuario);
+      }
+    }
+  }
+
+  function borrarNota()
+  {
+    let oContenedorNota = document.querySelector(".card");
+    let oBotonBorrar = document.getElementById("botonEliminarNota");
+    let padre = oBotonBorrar.parentElement.parentElement;
+    let idNotaABorrar = oContenedorNota.dataset.idNota
+    let idUsuario = oContenedorNota.dataset.idUsuario;
+    console.log(idUsuario);
+    let divPrincipal = document.querySelector("#imprimeNotas");
+    if(oNotas.eliminarNota(idNotaABorrar, idUsuario))
+    {
+      divPrincipal.removeChild(padre)
+    }
+    
+  }
 
 
 
@@ -371,3 +526,14 @@ btnAñadirGrupo.addEventListener("click", validarGrupos);
  
 let btnGenerarTablaGrupos = document.querySelector("#generarTablaGrupos");
 btnGenerarTablaGrupos.addEventListener("click", generarTablaGrupos);
+
+
+
+//NOTAS//
+let btnCrearNota = document.querySelector("#btnCrearNota");
+btnCrearNota.addEventListener("click", validarNota);
+
+
+let btnNotasPorUsuario = document.querySelector("#btnBuscarNotas");
+btnNotasPorUsuario.addEventListener("click", generarNotas);
+
