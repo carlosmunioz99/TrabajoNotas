@@ -485,13 +485,8 @@ function generarNotas() {
         let contenedor = document.querySelector("#imprimeNotas");
 
         /***************CAMBIAR ESTO*********************************************************************************************************************************** */
-        if (contenedor.hasChildNodes()) {
-            let children = contenedor.childNodes;
+        contenedor.textContent=""
 
-            for (let i = 0; i < children.length; i++) {
-                contenedor.removeChild(children[i]);
-            }
-        }
 
         let oNotasDeUsuario = usuarioABuscar.notas.slice(0);
         let listaGruposUsuario = oNotas._usuarioGrupos.filter(oUG => usuarioABuscar.usuario == oUG.idUsuario);
@@ -515,7 +510,7 @@ function generarNotas() {
 
 
 
-function generarNotas() {
+/*function generarNotas() {
     let txtUsuarioAbuscar = document.querySelector("#txtUsuarioABuscar");
     //console.log(txtUsuarioAbuscar);
     let oListadoUsuarios = oNotas.getUsuarios();
@@ -528,8 +523,8 @@ function generarNotas() {
         smallError.textContent = "";
 
         let contenedor = document.querySelector("#imprimeNotas");
-
-        let numHijos = contenedor.children;
+        contenedor.innerHTML="";
+        /*let numHijos = contenedor.children;
         for (let i = 0; i < numHijos.length; i++) {
             contenedor.removeChild(numHijos[i])
         }
@@ -539,7 +534,7 @@ function generarNotas() {
             Nota.contenidoNota(usuarioABuscar.notas[i], usuarioABuscar.usuario);
         }
     }
-}
+}*/
 
 function borrarNota() {
     let oContenedorNota = document.querySelector(".card");
@@ -597,5 +592,4 @@ btnCrearNota.addEventListener("click", validarNota);
 
 
 let btnNotasPorUsuario = document.querySelector("#btnBuscarNotas");
-
 btnNotasPorUsuario.addEventListener("click", generarNotas);

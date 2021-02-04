@@ -101,7 +101,20 @@ class Notas {
 
     }
 
-    bajaNota(oNota) {
+    eliminarNota(idNota, idUsuario) {
+        let notaABuscar = this._notas.find(oN=>oN.idNota == idNota);
+        let usuarioABuscar = this._usuarios.find(oU => oU.usuario == idUsuario);
+
+        let notaABuscarDelUsuario = usuarioABuscar.notas.find(oN=>oN.idNota == idNota);
+
+        removeItemFromArr( usuarioABuscar.notas, notaABuscarDelUsuario);
+
+        removeItemFromArr( this._notas, notaABuscar );
+        function removeItemFromArr ( arr, item ) {
+            var i = arr.indexOf( item );
+            arr.splice( i, 1 );
+        }
+        return true;
 
     }
 
@@ -218,12 +231,14 @@ class Nota {
         let oBoton = document.createElement("button");
         oBoton.setAttribute("type", "button");
         oBoton.setAttribute("class", "btn btn-primary");
+        oBoton.id = "botonEliminarNota";
         oBoton.dataset.borrar = oNota.id;
         oBoton.style.borderColor = "#000000";
         oBoton.style.color = "#000000";
         oBoton.style.position = "absolute";
         oBoton.style.bottom = "5px";
         oBoton.style.left = "5px";
+        oBoton.addEventListener("click", borrarNota);
 
         //oBoton.style.right="0";
 
