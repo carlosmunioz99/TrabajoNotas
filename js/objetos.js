@@ -88,7 +88,9 @@ class Notas {
 
 
 
-    altaNota(oNota) {
+    altaNota(oNota, sIdUsuario) {
+        let oUsuario = this._usuarios.find(oU => oU.usuario == sIdUsuario);
+        oUsuario.notas.push(oNota);
         this._notas.push(oNota);
     }
 
@@ -211,14 +213,14 @@ class Nota {
         let oBoton = document.createElement("button");
         oBoton.setAttribute("type", "button");
         oBoton.setAttribute("class", "btn btn-primary");
-        oBoton.setAttribute("id", "botonEliminarNota");
+        oBoton.dataset.borrar = oNota.id;
+        //oBoton.setAttribute("id", "botonEliminarNota");
         oBoton.style.borderColor = "#000000";
         oBoton.style.color = "#000000";
         oBoton.style.position = "absolute";
         oBoton.style.bottom = "5px";
         oBoton.style.left = "5px";
 
-        oBoton.addEventListener("click", borrarNota);
         //oBoton.style.right="0";
 
         let simbolo = document.createElement("img");
@@ -239,6 +241,8 @@ class Nota {
             oBoton.style.backgroundColor = "#b7ff8a";
         }
         let oContenedor = document.querySelector("#imprimeNotas");
+
+
 
         oContenedor.appendChild(oDivNota);
         oDivNota.appendChild(notaContenido);

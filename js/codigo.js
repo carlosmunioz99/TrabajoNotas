@@ -2,7 +2,7 @@
 var oNotas = new Notas();
 //usuarios de prueba
 let u1 = new Usuario("pepe123", "idvacs", "pepe@gmail", "Pepe");
-let u2 = new Usuario("juan23", "sftref", "juan@gmail", "Juanito");
+let u2 = new Usuario("juan123", "sftref", "juan@gmail", "Juanito");
 let u3 = new Usuario("tostada2", "idvagfddfgcs", "tostada2@gmail", "tostada");
 let u4 = new Usuario("tostadora43", "dfgef", "sech@gmail", "tostadora");
 let u5 = new Usuario("fulanito25", "cmr99d", "carlos@gmail", "fulano");
@@ -30,6 +30,19 @@ oNotas.altaUsuarioGrupo(g1, [u1, u3, u2]);
 oNotas.altaUsuarioGrupo(g2, [u1, u5]);
 oNotas.altaUsuarioGrupo(g3, [u3, u4]);
 oNotas.altaUsuarioGrupo(g4, [u2, u1, u3, u4]);
+
+//notas
+let n1 = new Nota("La curiosidad", "si alguna vez t quedas con ganas, solo me llamas a mí, yo t quiero tener solo dime cuándo", "alta");
+let n2 = new Nota("El bocachancla", "Ella es buena pero le gusta lo malo", "baja");
+let n3 = new Nota("El bandido", "Ese bandido que le hizo xdiganme x q llora", "media");
+let n4 = new Nota("Echa", "Tienes una mirada q me encanta beibe, un cuerpecito que mi mente envuelve", "alta");
+
+
+oNotas.altaNota(n1, u1.usuario);
+oNotas.altaNota(n2, u1.usuario);
+oNotas.altaNota(n3, u1.usuario);
+oNotas.altaNota(n4, u2.usuario);
+
 
 // Manejadores de eventos.
 let registrarUsuario = () => {
@@ -433,7 +446,7 @@ function validarNota() {
         let oNota = new Nota(txtTituloNota.value, txtContenidoNota.value, radioPrioridad);
 
         usuarioABuscar.agregarNota(oNota);
-        oNotas.altaNota(oNota);
+        oNotas.altaNota(oNota, usuarioABuscar.usuario);
 
         let mensaje = frmNuevaNota.firstElementChild;
         mensaje.classList.remove("ocultar");
@@ -466,9 +479,12 @@ function generarNotas() {
 
         let contenedor = document.querySelector("#imprimeNotas");
 
-        let numHijos = contenedor.children;
-        for (let i = 0; i < numHijos.length; i++) {
-            contenedor.removeChild(numHijos[i])
+        if (contenedor.hasChildNodes()) {
+            let children = contenedor.childNodes;
+
+            for (let i = 0; i < children.length; i++) {
+                children[i].remove();
+            }
         }
 
         let oNotasDeUsuario = usuarioABuscar.notas.slice(0);
@@ -490,19 +506,6 @@ function generarNotas() {
     }
 }
 
-function borrarNota() {
-    let oContenedorNota = document.querySelector(".card");
-    let oBotonBorrar = document.getElementById("botonEliminarNota");
-    let padre = oBotonBorrar.parentElement.parentElement;
-    let idNotaABorrar = oContenedorNota.dataset.idNota
-    let idUsuario = oContenedorNota.dataset.idUsuario;
-    console.log(idUsuario);
-    let divPrincipal = document.querySelector("#imprimeNotas");
-    if (oNotas.eliminarNota(idNotaABorrar, idUsuario)) {
-        divPrincipal.removeChild(padre)
-    }
-
-}
 
 
 
