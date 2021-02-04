@@ -479,11 +479,12 @@ function generarNotas() {
 
         let contenedor = document.querySelector("#imprimeNotas");
 
+        /***************CAMBIAR ESTO*********************************************************************************************************************************** */
         if (contenedor.hasChildNodes()) {
             let children = contenedor.childNodes;
 
             for (let i = 0; i < children.length; i++) {
-                children[i].remove();
+                contenedor.removeChild(children[i]);
             }
         }
 
@@ -501,6 +502,7 @@ function generarNotas() {
         }
 
         for (let i = 0; i < oNotasDeUsuario.length; i++) {
+            console.log("Nota" + i + " : " + oNotasDeUsuario[i]);
             Nota.contenidoNota(oNotasDeUsuario[i], usuarioABuscar.usuario);
         }
     }
