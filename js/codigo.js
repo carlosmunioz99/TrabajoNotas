@@ -485,7 +485,7 @@ function generarNotas() {
         let contenedor = document.querySelector("#imprimeNotas");
 
         /***************CAMBIAR ESTO*********************************************************************************************************************************** */
-        contenedor.textContent=""
+        contenedor.textContent = ""
 
 
         let oNotasDeUsuario = usuarioABuscar.notas.slice(0);
@@ -540,7 +540,7 @@ function borrarNota() {
     let oContenedorNota = document.querySelector(".card");
     let oBotonBorrar = document.getElementById("botonEliminarNota");
     let padre = oBotonBorrar.parentElement.parentElement;
-    let idNotaABorrar = oContenedorNota.dataset.idNota
+    let idNotaABorrar = oContenedorNota.dataset.idNota;
     let idUsuario = oContenedorNota.dataset.idUsuario;
     console.log(idUsuario);
     let divPrincipal = document.querySelector("#imprimeNotas");
