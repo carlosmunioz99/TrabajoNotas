@@ -468,31 +468,49 @@ function validarNota() {
 
 }
 
-function generarNotas() {
-    let txtUsuarioAbuscar = document.querySelector("#txtUsuarioABuscar");
+function generarNotasGrupo() 
+{
+    let txtGrupoABuscar = document.querySelector("#txtGrupoABuscar");
     //console.log(txtUsuarioAbuscar);
-    let oListadoUsuarios = oNotas.getUsuarios();
-    let usuarioABuscar = oListadoUsuarios.find(oU => oU.usuario == txtUsuarioAbuscar.value);
+    let oListadoGrupos = oNotas._grupos;
+    let grupoABuscar = oListadoGrupos.find(oG => oG.nombreGrupo == txtGrupoABuscar.value);
 
 
-    if (!usuarioABuscar) {
-        let smallError = txtUsuarioAbuscar.nextElementSibling;
-        smallError.textContent = "El usuario introducido no existe";
-    } else {
-        let smallError = txtUsuarioAbuscar.nextElementSibling;
+    if (!grupoABuscar) {
+        let smallError = txtGrupoABuscar.nextElementSibling;
+        smallError.textContent = "El grupo introducido no existe";
+    } else 
+    {
+        let smallError = txtGrupoABuscar.nextElementSibling;
         smallError.textContent = "";
 
         let contenedor = document.querySelector("#imprimeNotas");
 
         /***************CAMBIAR ESTO*********************************************************************************************************************************** */
-        contenedor.textContent = ""
+        contenedor.textContent=""
+        
+
+        let idGrupo = grupoABuscar.id
+        let oUsuarioGrupoABuscar = oNotas._usuarioGrupos.filter(oUG => oUG.idGrupo == idGrupo);
+        console.log(oUsuarioGrupoABuscar);
+        //let oNotasDeUsuario = usuarioABuscar.notas.slice(0);
+        for(let i=0;i<oUsuarioGrupoABuscar.length;i++)
+        {
+            let usuariosGruposAbuscar = oUsuarioGrupoABuscar[i].idUsuario;
+            let oUsuarioABuscar = oNotas._usuarios.find(oU => oU.usuario == usuariosGruposAbuscar);
+            for (let i = 0; i < oUsuarioABuscar.notas.length; i++) 
+            {
+                Nota.contenidoNota(oUsuarioABuscar.notas[i], oUsuarioABuscar.usuario);
+            }
+            
+        }
 
 
-        let oNotasDeUsuario = usuarioABuscar.notas.slice(0);
-        let listaGruposUsuario = oNotas._usuarioGrupos.filter(oUG => usuarioABuscar.usuario == oUG.idUsuario);
+        //let listaGruposUsuario = oNotas._usuarioGrupos.filter(oUG => usuarioABuscar.usuario == oUG.idUsuario);
 
         //buscar las notas del grupo al q pertenezca el usuario.
-        for (let i = 0; i < listaGruposUsuario.length; i++) {
+        /*for (let i = 0; i < listaGruposUsuario.length; i++) 
+        {
             let oNotaAbuscar = oNotas._notas.find(oNot => oNot.id == listaGruposUsuario[i].idNota);
 
             if (oNotaAbuscar != undefined) {
@@ -504,13 +522,13 @@ function generarNotas() {
         for (let i = 0; i < oNotasDeUsuario.length; i++) {
             console.log("Nota" + i + " : " + oNotasDeUsuario[i]);
             Nota.contenidoNota(oNotasDeUsuario[i], usuarioABuscar.usuario);
-        }
+        }*/
     }
 }
 
 
 
-/*function generarNotas() {
+function generarNotasUsuario() {
     let txtUsuarioAbuscar = document.querySelector("#txtUsuarioABuscar");
     //console.log(txtUsuarioAbuscar);
     let oListadoUsuarios = oNotas.getUsuarios();
@@ -518,29 +536,33 @@ function generarNotas() {
     if (!usuarioABuscar) {
         let smallError = txtUsuarioAbuscar.nextElementSibling;
         smallError.textContent = "El usuario introducido no existe";
-    } else {
+    } 
+    else 
+    {
         let smallError = txtUsuarioAbuscar.nextElementSibling;
         smallError.textContent = "";
 
         let contenedor = document.querySelector("#imprimeNotas");
         contenedor.innerHTML="";
-        /*let numHijos = contenedor.children;
-        for (let i = 0; i < numHijos.length; i++) {
+        let numHijos = contenedor.children;
+        for (let i = 0; i < numHijos.length; i++) 
+        {
             contenedor.removeChild(numHijos[i])
         }
 
 
-        for (let i = 0; i < usuarioABuscar.notas.length; i++) {
+        for (let i = 0; i < usuarioABuscar.notas.length; i++) 
+        {
             Nota.contenidoNota(usuarioABuscar.notas[i], usuarioABuscar.usuario);
         }
     }
-}*/
+}
 
 function borrarNota() {
     let oContenedorNota = document.querySelector(".card");
     let oBotonBorrar = document.getElementById("botonEliminarNota");
     let padre = oBotonBorrar.parentElement.parentElement;
-    let idNotaABorrar = oContenedorNota.dataset.idNota;
+    let idNotaABorrar = oContenedorNota.dataset.idNota
     let idUsuario = oContenedorNota.dataset.idUsuario;
     console.log(idUsuario);
     let divPrincipal = document.querySelector("#imprimeNotas");
@@ -592,4 +614,7 @@ btnCrearNota.addEventListener("click", validarNota);
 
 
 let btnNotasPorUsuario = document.querySelector("#btnBuscarNotas");
-btnNotasPorUsuario.addEventListener("click", generarNotas);
+btnNotasPorUsuario.addEventListener("click", generarNotasUsuario);
+
+let btnNotasPorGrupo = document.querySelector("#btnBuscarGrupo");
+btnNotasPorGrupo.addEventListener("click", generarNotasGrupo);
