@@ -27,9 +27,11 @@ oNotas.altaGrupo(g4);
 
 
 oNotas.altaUsuarioGrupo(g1, [u1, u3, u2]);
+/*
 oNotas.altaUsuarioGrupo(g2, [u1, u5]);
 oNotas.altaUsuarioGrupo(g3, [u3, u4]);
-oNotas.altaUsuarioGrupo(g4, [u2, u1, u3, u4]);
+oNotas.altaUsuarioGrupo(g4, [u2, u1, u3, u4]);*/
+
 
 //notas
 let n1 = new Nota("La curiosidad", "si alguna vez t quedas con ganas, solo me llamas a mí, yo t quiero tener solo dime cuándo", "alta");
@@ -141,6 +143,20 @@ let borrarUsuario = (e) => {
         let sNombreUsuario = e.target.getAttribute("data-id");
         oNotas.bajaUsuario(sNombreUsuario);
         generarTablaUsuarios();
+    }
+}
+
+let borrarNotas = (e) => {
+    console.log(e.target.classList[1]);
+    if (e.target.classList[1] == "borrar-nota-usuario") {
+
+        let sIdNotaUsuario = e.target.getAttribute("data-id-nota");
+        let sIdUsuario = e.target.getAttribute("data-id-usuario");
+        oNotas.bajaNotaUsuario(sIdUsuario, sIdNotaUsuario);
+        console.log("entre prro");
+    } else {
+
+
     }
 }
 
@@ -335,6 +351,7 @@ function validarGrupos() {
 
 
         let oGrupo = new Grupo(txtNombreGrupo);
+
         oNotas.altaUsuarioGrupo(oGrupo, oListadoObjetosUsuario);
 
         let mensaje = frmAñadirGrupo.firstElementChild;
@@ -397,11 +414,24 @@ for (let i = 0; i < listaUsuarios.length; i++) {
     oOpcion.textContent = listaUsuarios[i].usuario;
     oLista.appendChild(oOpcion);
 }
+/**RELLENAR COMBO DE GRUPOS PARA NOTAS*/
+let $lista = frmNuevaNota.grupoPropietario;
+let listaGrupos = oNotas.getGrupos();
+for (let i = 0; i < listaGrupos.length; i++) {
+    let oOpcion = document.createElement('option');
+    oOpcion.textContent = listaGrupos[i].nombreGrupo;
+    $lista.appendChild(oOpcion);
+}
+
 
 
 function validarNota() {
     let bValido = true;
     let txtTituloNota = document.querySelector("#txtTituloNota");
+
+
+
+
     let regExp = /[a-zA-Z0-9\s]{4,50}/;
 
     if (!regExp.test(txtTituloNota)) {
@@ -423,13 +453,22 @@ function validarNota() {
         let smallError = frmNuevaNota.contenidoNota.nextElementSibling;
         smallError.textContent = "";
     }
+    let $opcionUsuario = frmNuevaNota.getElementsByTagName("a")[0];
+
+    let entidadPropietaria = document.querySelector("#usuarioPropietario");
+    let bPropietarioUsuario = true;
+    if (!$opcionUsuario.classList.contains("show")) {
+        console.log("gru");
+        entidadPropietaria = document.querySelector("#grupoPropietario");
+        bPropietarioUsuario = false;
+    }
 
 
-    let usuarioPropietario = document.querySelector("#usuarioPropietario");
-    if (usuarioPropietario.selectedIndex == 0) {
+
+    if (entidadPropietaria.selectedIndex == 0) {
         bValido = false;
-        let smallError = frmNuevaNota.usuarioPropietario.nextElementSibling;
-        smallError.textContent = "Seleccione un usuario para la nota";
+        let smallError = frmNuevaNota.entidadPropietaria.nextElementSibling;
+        smallError.textContent = "Seleccione correctamente una opción para la nota";
     } else {
         let smallError = frmNuevaNota.contenidoNota.nextElementSibling;
         smallError.textContent = "";
@@ -445,12 +484,29 @@ function validarNota() {
         smallError.textContent = "";
     }
     if (bValido) {
-        let oListadoUsuarios = oNotas.getUsuarios();
 
-        let usuarioABuscar = oListadoUsuarios.find(oU => oU.usuario == usuarioPropietario.value)
         let oNota = new Nota(txtTituloNota.value, txtContenidoNota.value, radioPrioridad);
 
-        oNotas.altaNota(oNota, usuarioABuscar.usuario);
+        if (bPropietarioUsuario) {
+            let oListado = oNotas.getUsuarios();
+            let entidadABuscar = oListado.find(oU => oU.usuario == entidadPropietaria.value);
+            oNotas.altaNota(oNota, entidadABuscar.usuario);
+
+        } else {
+
+            let oListado = oNotas.getGrupos();
+            let entidadABuscar = oListado.find(oG => oG.nombreGrupo == entidadPropietaria.value);
+            let listaGrupoUsuario = oNotas.getUsuariosGrupos();
+            listaGrupoUsuario = listaGrupoUsuario.filter(oUg => oUg.idGrupo == entidadABuscar.id);
+
+
+            oNotas.altaNotaGrupo(oNota, listaGrupoUsuario);
+
+        }
+
+
+
+
 
 
         let mensaje = frmNuevaNota.firstElementChild;
@@ -468,8 +524,8 @@ function validarNota() {
 
 }
 
-function generarNotasGrupo() 
-{
+
+function generarNotasGrupo() {
     let txtGrupoABuscar = document.querySelector("#txtGrupoABuscar");
     //console.log(txtUsuarioAbuscar);
     let oListadoGrupos = oNotas._grupos;
@@ -479,50 +535,34 @@ function generarNotasGrupo()
     if (!grupoABuscar) {
         let smallError = txtGrupoABuscar.nextElementSibling;
         smallError.textContent = "El grupo introducido no existe";
-    } else 
-    {
+    } else {
         let smallError = txtGrupoABuscar.nextElementSibling;
         smallError.textContent = "";
 
         let contenedor = document.querySelector("#imprimeNotas");
 
         /***************CAMBIAR ESTO*********************************************************************************************************************************** */
-        contenedor.textContent=""
-        
+        contenedor.textContent = ""
+
 
         let idGrupo = grupoABuscar.id
         let oUsuarioGrupoABuscar = oNotas._usuarioGrupos.filter(oUG => oUG.idGrupo == idGrupo);
-        console.log(oUsuarioGrupoABuscar);
+
+
         //let oNotasDeUsuario = usuarioABuscar.notas.slice(0);
-        for(let i=0;i<oUsuarioGrupoABuscar.length;i++)
-        {
-            let usuariosGruposAbuscar = oUsuarioGrupoABuscar[i].idUsuario;
-            let oUsuarioABuscar = oNotas._usuarios.find(oU => oU.usuario == usuariosGruposAbuscar);
-            for (let i = 0; i < oUsuarioABuscar.notas.length; i++) 
-            {
-                Nota.contenidoNota(oUsuarioABuscar.notas[i], oUsuarioABuscar.usuario);
-            }
-            
+
+        let oNotasDelGrupo = [];
+        let oTodasNotas = oNotas.getNotas();
+
+        let aNotas = oUsuarioGrupoABuscar[0].notas;
+
+        for (let i = 0; i < aNotas.length; i++) {
+            Nota.contenidoNotaGrupo(aNotas[i], idGrupo);
         }
 
 
-        //let listaGruposUsuario = oNotas._usuarioGrupos.filter(oUG => usuarioABuscar.usuario == oUG.idUsuario);
+        console.log(oNotasDelGrupo);
 
-        //buscar las notas del grupo al q pertenezca el usuario.
-        /*for (let i = 0; i < listaGruposUsuario.length; i++) 
-        {
-            let oNotaAbuscar = oNotas._notas.find(oNot => oNot.id == listaGruposUsuario[i].idNota);
-
-            if (oNotaAbuscar != undefined) {
-                oNotasDeUsuario.push(oNotaAbuscar);
-            }
-
-        }
-
-        for (let i = 0; i < oNotasDeUsuario.length; i++) {
-            console.log("Nota" + i + " : " + oNotasDeUsuario[i]);
-            Nota.contenidoNota(oNotasDeUsuario[i], usuarioABuscar.usuario);
-        }*/
     }
 }
 
@@ -536,26 +576,23 @@ function generarNotasUsuario() {
     if (!usuarioABuscar) {
         let smallError = txtUsuarioAbuscar.nextElementSibling;
         smallError.textContent = "El usuario introducido no existe";
-    } 
-    else 
-    {
+    } else {
         let smallError = txtUsuarioAbuscar.nextElementSibling;
         smallError.textContent = "";
 
         let contenedor = document.querySelector("#imprimeNotas");
-        contenedor.innerHTML="";
+        contenedor.innerHTML = "";
         let numHijos = contenedor.children;
-        for (let i = 0; i < numHijos.length; i++) 
-        {
+        for (let i = 0; i < numHijos.length; i++) {
             contenedor.removeChild(numHijos[i])
         }
 
-
-        for (let i = 0; i < usuarioABuscar.notas.length; i++) 
-        {
+        for (let i = 0; i < usuarioABuscar.notas.length; i++) {
             Nota.contenidoNota(usuarioABuscar.notas[i], usuarioABuscar.usuario);
         }
     }
+
+
 }
 
 function borrarNota() {
@@ -618,3 +655,6 @@ btnNotasPorUsuario.addEventListener("click", generarNotasUsuario);
 
 let btnNotasPorGrupo = document.querySelector("#btnBuscarGrupo");
 btnNotasPorGrupo.addEventListener("click", generarNotasGrupo);
+
+let $contenedorNotas = document.getElementById("imprimeNotas");
+$contenedorNotas.addEventListener("click", borrarNotas);

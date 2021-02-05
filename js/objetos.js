@@ -11,6 +11,17 @@ class Notas {
         return this._usuarios;
     }
 
+    getGrupos() {
+        return this._grupos;
+    }
+
+    getNotas() {
+        return this._notas;
+    }
+
+    getUsuariosGrupos() {
+        return this._usuarioGrupos;
+    }
     registrarUsuario(oUsuario) {
         let bResultado = true;
 
@@ -97,36 +108,40 @@ class Notas {
         this._notas.push(oNota);
     }
 
-    modificarNota(oNota) {
+    altaNotaGrupo(oNota, listaGrupoUsuario) {
+        for (let i = 0; i < listaGrupoUsuario.length; i++) {
+            listaGrupoUsuario[i].notas.push(oNota);
+        }
 
+        this._notas.push(oNota);
     }
 
+
+
     eliminarNota(idNota, idUsuario) {
-        let notaABuscar = this._notas.find(oN=>oN.idNota == idNota);
+        let notaABuscar = this._notas.find(oN => oN.idNota == idNota);
         let usuarioABuscar = this._usuarios.find(oU => oU.usuario == idUsuario);
 
-        let notaABuscarDelUsuario = usuarioABuscar.notas.find(oN=>oN.idNota == idNota);
+        let notaABuscarDelUsuario = usuarioABuscar.notas.find(oN => oN.idNota == idNota);
 
-        removeItemFromArr( usuarioABuscar.notas, notaABuscarDelUsuario);
+        removeItemFromArr(usuarioABuscar.notas, notaABuscarDelUsuario);
 
-        removeItemFromArr( this._notas, notaABuscar );
-        function removeItemFromArr ( arr, item ) {
-            var i = arr.indexOf( item );
-            arr.splice( i, 1 );
+        removeItemFromArr(this._notas, notaABuscar);
+
+        function removeItemFromArr(arr, item) {
+            var i = arr.indexOf(item);
+            arr.splice(i, 1);
         }
         return true;
 
     }
 
     altaGrupo(oGrupo) {
-       let bResultado = true;
+        let bResultado = true;
 
-        if(this._grupos.some(oG => (oG.nombreGrupo == oGrupo.sNombreGrupo)))
-        {
+        if (this._grupos.some(oG => (oG.nombreGrupo == oGrupo.sNombreGrupo))) {
             bResultado = false;
-        }
-        else
-        {
+        } else {
             this._grupos.push(oGrupo);
         }
         return bResultado;
@@ -134,6 +149,19 @@ class Notas {
     }
 
     bajaGrupo(oGrupo) {
+
+    }
+
+    bajaNotaUsuario(sIdUsuario, sNotaId) {
+        let iPosNota = this._notas.findIndex(oN => oN.id == sNotaId);
+
+        this._notas.splice(iPosNota, 1);
+
+        let oUsuario = this.buscarUsuario(sIdUsuario);
+
+        iPosNota = oUsuario.notas.findIndex(oN => oN.id == sNotaId);
+
+        aNotas.splice(iPosNota, 1);
 
     }
 
@@ -182,7 +210,7 @@ class Notas {
     altaUsuarioGrupo(oGrupo, oListadoObjetosUsuario) {
 
         for (let oU of oListadoObjetosUsuario) {
-            this._usuarioGrupos.push(new UsuarioGrupo(oU.usuario, oGrupo.id, ""));
+            this._usuarioGrupos.push(new UsuarioGrupo(oU.usuario, oGrupo.id));
         }
 
     }
@@ -221,7 +249,7 @@ class Nota {
         oDivNota.setAttribute("class", "card");
         oDivNota.dataset.idNota = oNota.id;
         oDivNota.dataset.idUsuario = idUsuario;
-
+        oDivNota.classList.add("borrar-nota-usuario");
 
         let notaContenido = document.createElement('div');
         notaContenido.setAttribute("class", "card-body");
@@ -249,7 +277,70 @@ class Nota {
         oBoton.style.position = "absolute";
         oBoton.style.bottom = "5px";
         oBoton.style.left = "5px";
-        oBoton.addEventListener("click", borrarNota);
+
+
+        //oBoton.style.right="0";
+
+        let simbolo = document.createElement("img");
+        simbolo.src = "./img/eliminar.png";
+        oBoton.appendChild(simbolo);
+
+
+        if (oNota.prioridad == "alta") {
+            oDivNota.style.backgroundColor = "#ff5555";
+            oBoton.style.backgroundColor = "#ff5555";
+        }
+        if (oNota.prioridad == "media") {
+            oDivNota.style.backgroundColor = "#ffd88a";
+            oBoton.style.backgroundColor = "#ffd88a";
+        }
+        if (oNota.prioridad == "baja") {
+            oDivNota.style.backgroundColor = "#b7ff8a";
+            oBoton.style.backgroundColor = "#b7ff8a";
+        }
+        let oContenedor = document.querySelector("#imprimeNotas");
+
+        oContenedor.appendChild(oDivNota);
+        oDivNota.appendChild(notaContenido);
+        notaContenido.appendChild(oEncabezado)
+        notaContenido.appendChild(oContenido);
+        notaContenido.appendChild(oBoton)
+    }
+
+    static contenidoNotaGrupo(oNota, idGrupo) {
+        let oDivNota = document.createElement('div');
+        oDivNota.setAttribute("class", "card");
+        oDivNota.dataset.idNota = oNota.id;
+        oDivNota.dataset.idGrupo = idGrupo;
+        oDivNota.classList.add("borrar-nota-grupo");
+
+        let notaContenido = document.createElement('div');
+        notaContenido.setAttribute("class", "card-body");
+        let oEncabezado = document.createElement('h4');
+        oEncabezado.setAttribute("class", "card-title");
+        oEncabezado.textContent = oNota.titulo;
+
+        let oContenido = document.createElement('p');
+        oContenido.setAttribute("class", "card-text")
+        oContenido.textContent = oNota.contenido;
+
+        oDivNota.style.width = "18rem";
+
+        oDivNota.style.height = "300px";
+        oDivNota.style.margin = "50px";
+        oDivNota.style.float = "left";
+
+        let oBoton = document.createElement("button");
+        oBoton.setAttribute("type", "button");
+        oBoton.setAttribute("class", "btn btn-primary");
+        oBoton.id = "botonEliminarNota";
+        oBoton.dataset.borrar = oNota.id;
+        oBoton.style.borderColor = "#000000";
+        oBoton.style.color = "#000000";
+        oBoton.style.position = "absolute";
+        oBoton.style.bottom = "5px";
+        oBoton.style.left = "5px";
+
 
         //oBoton.style.right="0";
 
@@ -295,9 +386,9 @@ class Grupo {
 
 
 class UsuarioGrupo {
-    constructor(sIdUsuario, sIdGrupo, sIdNota) {
+    constructor(sIdUsuario, sIdGrupo) {
         this.idUsuario = sIdUsuario;
         this.idGrupo = sIdGrupo;
-        this.idNota = sIdNota;
+        this.notas = [];
     }
 }
