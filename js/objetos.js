@@ -119,7 +119,18 @@ class Notas {
     }
 
     altaGrupo(oGrupo) {
-        this._grupos.push(oGrupo);
+       let bResultado = true;
+
+        if(this._grupos.some(oG => (oG.nombreGrupo == oGrupo.sNombreGrupo)))
+        {
+            bResultado = false;
+        }
+        else
+        {
+            this._grupos.push(oGrupo);
+        }
+        return bResultado;
+
     }
 
     bajaGrupo(oGrupo) {
