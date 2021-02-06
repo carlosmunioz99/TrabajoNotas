@@ -14,7 +14,7 @@ oNotas.registrarUsuario(u4);
 oNotas.registrarUsuario(u5);
 
 
-//grupos de prueba
+//creación de grupos
 let g1 = new Grupo("grupo1");
 let g2 = new Grupo("grupo2");
 let g3 = new Grupo("grupo3");
@@ -26,19 +26,18 @@ oNotas.altaGrupo(g3);
 oNotas.altaGrupo(g4);
 
 
+//asignación de usuarios a un grupo
 oNotas.altaUsuarioGrupo(g1, [u1, u3, u2]);
-/*
 oNotas.altaUsuarioGrupo(g2, [u1, u5]);
 oNotas.altaUsuarioGrupo(g3, [u3, u4]);
-oNotas.altaUsuarioGrupo(g4, [u2, u1, u3, u4]);*/
+oNotas.altaUsuarioGrupo(g4, [u2, u1, u3, u4]);
 
 
-//notas
+//notas para usuarios
 let n1 = new Nota("La curiosidad", "si alguna vez t quedas con ganas, solo me llamas a mí, yo t quiero tener solo dime cuándo", "alta");
 let n2 = new Nota("El bocachancla", "Ella es buena pero le gusta lo malo", "baja");
 let n3 = new Nota("El bandido", "Ese bandido que le hizo xdiganme x q llora", "media");
 let n4 = new Nota("Echa", "Tienes una mirada q me encanta beibe, un cuerpecito que mi mente envuelve", "alta");
-
 
 oNotas.altaNota(n1, u1.usuario);
 oNotas.altaNota(n2, u1.usuario);
@@ -449,6 +448,7 @@ function validarNota() {
         bValido = false;
         let smallError = frmNuevaNota.contenidoNota.nextElementSibling;
         smallError.textContent = "Introduzca algún contenido en la nota";
+        console.log("sin contieef");
     } else {
         let smallError = frmNuevaNota.contenidoNota.nextElementSibling;
         smallError.textContent = "";
@@ -457,7 +457,8 @@ function validarNota() {
 
     let entidadPropietaria = document.querySelector("#usuarioPropietario");
     let bPropietarioUsuario = true;
-    if (!$opcionUsuario.classList.contains("show")) {
+
+    if ($opcionUsuario.getAttribute("aria-selected") == "false") {
         console.log("gru");
         entidadPropietaria = document.querySelector("#grupoPropietario");
         bPropietarioUsuario = false;
@@ -467,7 +468,8 @@ function validarNota() {
 
     if (entidadPropietaria.selectedIndex == 0) {
         bValido = false;
-        let smallError = frmNuevaNota.entidadPropietaria.nextElementSibling;
+        console.log("no seleccionado");
+        let smallError = entidadPropietaria.nextElementSibling;
         smallError.textContent = "Seleccione correctamente una opción para la nota";
     } else {
         let smallError = frmNuevaNota.contenidoNota.nextElementSibling;
@@ -483,6 +485,8 @@ function validarNota() {
         let smallError = divPrioridad.nextElementSibling;
         smallError.textContent = "";
     }
+
+
     if (bValido) {
 
         let oNota = new Nota(txtTituloNota.value, txtContenidoNota.value, radioPrioridad);
@@ -495,11 +499,13 @@ function validarNota() {
         } else {
 
             let oListado = oNotas.getGrupos();
-            let entidadABuscar = oListado.find(oG => oG.nombreGrupo == entidadPropietaria.value);
+            let grupoBuscado = oListado.find(oG => oG.nombreGrupo == entidadPropietaria.value);
+
             let listaGrupoUsuario = oNotas.getUsuariosGrupos();
-            listaGrupoUsuario = listaGrupoUsuario.filter(oUg => oUg.idGrupo == entidadABuscar.id);
 
+            listaGrupoUsuario = listaGrupoUsuario.filter(oUg => oUg.idGrupo == grupoBuscado.id);
 
+            console.log(listaGrupoUsuario);
             oNotas.altaNotaGrupo(oNota, listaGrupoUsuario);
 
         }
@@ -549,19 +555,18 @@ function generarNotasGrupo() {
         let oUsuarioGrupoABuscar = oNotas._usuarioGrupos.filter(oUG => oUG.idGrupo == idGrupo);
 
 
-        //let oNotasDeUsuario = usuarioABuscar.notas.slice(0);
+        if (oUsuarioGrupoABuscar.length != 0) {
 
-        let oNotasDelGrupo = [];
-        let oTodasNotas = oNotas.getNotas();
+            let oNotasDelGrupo = [];
+            let oTodasNotas = oNotas.getNotas();
 
-        let aNotas = oUsuarioGrupoABuscar[0].notas;
+            let aNotas = oUsuarioGrupoABuscar[0].notas;
 
-        for (let i = 0; i < aNotas.length; i++) {
-            Nota.contenidoNotaGrupo(aNotas[i], idGrupo);
+            for (let i = 0; i < aNotas.length; i++) {
+                Nota.contenidoNotaGrupo(aNotas[i], idGrupo);
+            }
         }
 
-
-        console.log(oNotasDelGrupo);
 
     }
 }
