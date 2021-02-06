@@ -1,8 +1,8 @@
-.ocultar{
-    display:none;
+.ocultar {
+    display: none;
 }
 
-.fondo-editar{
+.fondo-editar {
     background-image: url('img/editar.svg');
     width: 20px;
     height: 20px;
@@ -10,10 +10,22 @@
     background-size: cover;
 }
 
-.fondo-eliminar{
+.fondo-eliminar {
     background-image: url('img/eliminar.svg');
     width: 20px;
     height: 20px;
     cursor: pointer;
     background-size: cover;
+}
+
+.nota-borrar {
+    background-image: url('img/eliminar.png');
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    background-size: cover;
+}
+
+#imprimeNotas {
+    overflow: hidden;
 }

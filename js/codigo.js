@@ -146,17 +146,26 @@ let borrarUsuario = (e) => {
 }
 
 let borrarNotas = (e) => {
-    console.log(e.target.classList[1]);
-    if (e.target.classList[1] == "borrar-nota-usuario") {
+    if (e.target.tagName == "BUTTON") {
 
-        let sIdNotaUsuario = e.target.getAttribute("data-id-nota");
-        let sIdUsuario = e.target.getAttribute("data-id-usuario");
-        oNotas.bajaNotaUsuario(sIdUsuario, sIdNotaUsuario);
-        console.log("entre prro");
-    } else {
+        //para un usuario
+        if (e.target.getAttribute("data-id-usuario") != null) {
 
+            let sIdNotaUsuario = e.target.getAttribute("data-id-nota");
+            let sIdUsuario = e.target.getAttribute("data-id-usuario");
+            oNotas.bajaNotaUsuario(sIdUsuario, sIdNotaUsuario);
+
+        } else {
+            //para un grupo
+            let sIdNotaGrupo = e.target.getAttribute("data-id-nota");
+            let sIdGrupo = e.target.getAttribute("data-id-grupo");
+            oNotas.bajaNotaGrupo(sIdGrupo, sIdNotaGrupo);
+        }
+
+        e.target.parentElement.parentElement.remove();
 
     }
+
 }
 
 let copiarUsuarioModalEditar = (e) => {
@@ -597,20 +606,6 @@ function generarNotasUsuario() {
         }
     }
 
-
-}
-
-function borrarNota() {
-    let oContenedorNota = document.querySelector(".card");
-    let oBotonBorrar = document.getElementById("botonEliminarNota");
-    let padre = oBotonBorrar.parentElement.parentElement;
-    let idNotaABorrar = oContenedorNota.dataset.idNota
-    let idUsuario = oContenedorNota.dataset.idUsuario;
-    console.log(idUsuario);
-    let divPrincipal = document.querySelector("#imprimeNotas");
-    if (oNotas.eliminarNota(idNotaABorrar, idUsuario)) {
-        divPrincipal.removeChild(padre)
-    }
 
 }
 

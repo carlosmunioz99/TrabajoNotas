@@ -153,15 +153,32 @@ class Notas {
     }
 
     bajaNotaUsuario(sIdUsuario, sNotaId) {
+        //borrar array global
         let iPosNota = this._notas.findIndex(oN => oN.id == sNotaId);
 
         this._notas.splice(iPosNota, 1);
 
+        //borrar array notas de usuario
         let oUsuario = this.buscarUsuario(sIdUsuario);
 
         iPosNota = oUsuario.notas.findIndex(oN => oN.id == sNotaId);
 
-        aNotas.splice(iPosNota, 1);
+        oUsuario.notas.splice(iPosNota, 1);
+
+    }
+
+    bajaNotaGrupo(sIdGrupo, sNotaIdGrupo) {
+        let iPosNota = this._notas.findIndex(oN => oN.id == sNotaIdGrupo);
+
+        this._notas.splice(iPosNota, 1);
+
+        //borrar objeto notagrupo
+        let oListaUsuariosGrupos = this._usuarioGrupos.filter(oUg => oUg.idGrupo == sIdGrupo);
+
+        for (let i = 0; i < oListaUsuariosGrupos.length; i++) {
+            let iPosNota = oListaUsuariosGrupos[i].notas.findIndex(oN => oN.id == sNotaIdGrupo);
+            oListaUsuariosGrupos[i].notas.splice(iPosNota, 1);
+        }
 
     }
 
@@ -247,9 +264,8 @@ class Nota {
     static contenidoNota(oNota, idUsuario) {
         let oDivNota = document.createElement('div');
         oDivNota.setAttribute("class", "card");
-        oDivNota.dataset.idNota = oNota.id;
-        oDivNota.dataset.idUsuario = idUsuario;
-        oDivNota.classList.add("borrar-nota-usuario");
+
+
 
         let notaContenido = document.createElement('div');
         notaContenido.setAttribute("class", "card-body");
@@ -270,8 +286,10 @@ class Nota {
         let oBoton = document.createElement("button");
         oBoton.setAttribute("type", "button");
         oBoton.setAttribute("class", "btn btn-primary");
-        oBoton.id = "botonEliminarNota";
-        oBoton.dataset.borrar = oNota.id;
+
+        oBoton.dataset.idNota = oNota.id;
+        oBoton.dataset.idUsuario = idUsuario;
+
         oBoton.style.borderColor = "#000000";
         oBoton.style.color = "#000000";
         oBoton.style.position = "absolute";
@@ -281,9 +299,8 @@ class Nota {
 
         //oBoton.style.right="0";
 
-        let simbolo = document.createElement("img");
-        simbolo.src = "./img/eliminar.png";
-        oBoton.appendChild(simbolo);
+
+        oBoton.classList.add("nota-borrar");
 
 
         if (oNota.prioridad == "alta") {
@@ -310,9 +327,8 @@ class Nota {
     static contenidoNotaGrupo(oNota, idGrupo) {
         let oDivNota = document.createElement('div');
         oDivNota.setAttribute("class", "card");
-        oDivNota.dataset.idNota = oNota.id;
-        oDivNota.dataset.idGrupo = idGrupo;
-        oDivNota.classList.add("borrar-nota-grupo");
+
+
 
         let notaContenido = document.createElement('div');
         notaContenido.setAttribute("class", "card-body");
@@ -333,8 +349,11 @@ class Nota {
         let oBoton = document.createElement("button");
         oBoton.setAttribute("type", "button");
         oBoton.setAttribute("class", "btn btn-primary");
-        oBoton.id = "botonEliminarNota";
-        oBoton.dataset.borrar = oNota.id;
+
+        oBoton.dataset.idNota = oNota.id;
+        oBoton.dataset.idGrupo = idGrupo;
+
+
         oBoton.style.borderColor = "#000000";
         oBoton.style.color = "#000000";
         oBoton.style.position = "absolute";
@@ -344,9 +363,7 @@ class Nota {
 
         //oBoton.style.right="0";
 
-        let simbolo = document.createElement("img");
-        simbolo.src = "./img/eliminar.png";
-        oBoton.appendChild(simbolo);
+        oBoton.classList.add("nota-borrar");
 
 
         if (oNota.prioridad == "alta") {
