@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usuarios>
+    <usuario>
+        <id>pepe123</id>
+        <nombre>Pepe</nombre>
+        <contraseña>idvacs</contraseña>
+        <e-mail>pepe@gmail</e-mail>
+    </usuario>
+
+    <usuario>
+        <id>juan123</id>
+        <nombre>Juanito</nombre>
+        <contraseña>sftref</contraseña>
+        <e-mail>juan@gmail</e-mail>
+    </usuario>
+
+    <usuario>
+        <id>tostada2</id>
+        <nombre>tostada</nombre>
+        <contraseña>idvagfddfgcs</contraseña>
+        <e-mail>tostada2@gmail</e-mail>
+    </usuario>
+
+    <usuario>
+        <id>tostadora43</id>
+        <nombre>tostadora</nombre>
+        <contraseña>dfgef</contraseña>
+        <e-mail>sech@gmail</e-mail>
+    </usuario>
+
+    <usuario>
+        <id>fulanito25</id>
+        <nombre>fulano</nombre>
+        <contraseña>cmr99d</contraseña>
+        <e-mail>carlos@gmail</e-mail>
+    </usuario>
+
+</usuarios>

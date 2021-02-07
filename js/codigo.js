@@ -269,6 +269,36 @@ let limpiarEdicionUsuario = () => {
 
 let generarTablaUsuarios = () => {
 
+    /*var oXML = loadXMLDoc("usuarios.xml");
+
+    var oTabla = document.getElementById("tabla");
+    oTabla.setAttribute("border", "1");
+
+
+    var oLibros = oXML.getElementsByTagName("usuario");
+    for (var j = 0; j < oLibros.length; j++) {
+        var numAutores = oLibros[j].getElementsByTagName("id").length;
+
+        var oFila = oTabla.insertRow(-1);
+        var oCelda = oFila.insertCell(-1);
+        oCelda.textContent = oLibros[j].getElementsByTagName("id")[0].textContent;
+
+        oCelda = oFila.insertCell(-1);
+
+        for (var h = 0; h < numAutores; h++) {
+            oCelda.textContent += oLibros[j].getElementsByTagName("nombre")[0].textContent;
+        }
+
+
+        oCelda = oFila.insertCell(-1);
+        oCelda.textContent = oLibros[j].getElementsByTagName("contraseña")[0].textContent;
+
+        oCelda = oFila.insertCell(-1);
+        oCelda.textContent = oLibros[j].getElementsByTagName("e-mail")[0].textContent;
+
+    }*/
+    //cargar el documento XML
+
     //vaciar tablas si es q hay
     let $posibleTabla = document.querySelector("#contenedor-usuarios table");
     if ($posibleTabla != null) {
@@ -299,6 +329,26 @@ let generarTablaUsuarios = () => {
 
     $contUsuarios.insertBefore($tabla, $contUsuarios.querySelector("input"));
 }
+
+//CARGAR XML////
+function loadXMLDoc(filename) {
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+    } else // code for IE5 and IE6
+    {
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.open("GET", filename, false);
+
+    xhttp.send();
+
+    return xhttp.responseXML;
+}
+
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

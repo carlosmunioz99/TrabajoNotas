@@ -16,40 +16,15 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">Trabajo Grupo 5</a>
             </div>
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="#" id="btnLogin" name="btnLogin" value="Login" data-toggle="modal" data-target="#modalLogin">Login</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              id="btnRegistro"
-              name="btnRegistro"
-              value="Registro"
-              data-toggle="modal"
-              data-target="#modalRegistroUsuario"
-              >Registro</a
-            >
-          </li>
-        </ul>
-      </div>
+        </div>
     </nav>
 
     <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a
-                class="nav-item nav-link active"
-                id="nav-home-tab"
-                data-toggle="tab"
-                href="#contenedor-usuarios"
-                role="tab"
-                aria-controls="nav-home"
-                aria-selected="true"
-                >Usuarios</a
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#contenedor-usuarios" role="tab" aria-controls="nav-home" aria-selected="true">Usuarios</a
               >
               <a
                 class="nav-item nav-link"
@@ -97,6 +72,7 @@
               >
                 Registrar Usuario
               </button>
+              <table id="tabla"></table>
             </div>
             <!--FIN CONTENEDOR USUARIO-->
 
@@ -232,7 +208,7 @@
                       type="button"
                       id="btnCerrarModalLogin"
                       name="btnCerrarModalLogin"
-                      class="btn btn-primary"
+                      class="btn btn-danger"
                       value="Cerrar"
                       data-dismiss="modal"
                     />
@@ -328,10 +304,10 @@
             />
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-danger"
               data-dismiss="modal"
             >
-              Close
+              Cerrar
             </button>
           </div>
         </div>
@@ -415,10 +391,10 @@
             />
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-danger"
               data-dismiss="modal"
             >
-              Close
+              Cerrar
             </button>
           </div>
         </div>
@@ -502,124 +478,125 @@
                           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                               <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Usuario</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Grupo</a>
-                </li>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Grupo</a>
+                        </li>
 
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="form-group">
-                        <select class="form-control" name="usuarioPropietario" id="usuarioPropietario">
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div class="form-group">
+                                    <select class="form-control" name="usuarioPropietario" id="usuarioPropietario">
                                   <option selected>Escoja un usuario</option>
                         </select>
-                        <small class="form-text text-danger"></small>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="form-group">
-                        <select class="form-control" name="grupoPropietario" id="grupoPropietario">
+                                    <small class="form-text text-danger"></small>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <div class="form-group">
+                                    <select class="form-control" name="grupoPropietario" id="grupoPropietario">
                               <option selected>Escoja un grupo</option>
                     </select>
+                                    <small class="form-text text-danger"></small>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--FIN OPCIONES-->
+
+
+
+                        <div name="rbPrioridad" id="rbPrioridad">
+                            <p>Prioridad: </p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="radio" id="radio" value="alta">
+                                <label class="form-check-label" for="inlineRadio1">Alta</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="radio" id="radio" value="media">
+                                <label class="form-check-label" for="inlineRadio2">Media</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="radio" id="radio" value="baja" selected>
+                                <label class="form-check-label" for="inlineRadio3">Baja</label>
+                            </div>
+                        </div>
                         <small class="form-text text-danger"></small>
-                    </div>
-                </div>
-
-            </div>
-            <!--FIN OPCIONES-->
-
-
-
-            <div name="rbPrioridad" id="rbPrioridad">
-                <p>Prioridad: </p>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radio" id="radio" value="alta">
-                    <label class="form-check-label" for="inlineRadio1">Alta</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radio" id="radio" value="media">
-                    <label class="form-check-label" for="inlineRadio2">Media</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radio" id="radio" value="baja" selected>
-                    <label class="form-check-label" for="inlineRadio3">Baja</label>
-                </div>
-            </div>
-            <small class="form-text text-danger"></small>
-            <div>
-                <input type="button" class="btn btn-primary" value="Añadir nota" id="btnCrearNota" name="btnCrearNota" />
-            </div>
-
-            </form>
-        </div>
-        </div>
-        </div>
-        </div>
-
-        <!--MODAL NOTA POR USUARIO-->
-        <div class="modal" tabindex="-1" role="dialog" name="modalBusquedaUsuario" id="modalBusquedaUsuario">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h3>Busqueda por usuario</h3>
-                        <form name="frmUsuarioABuscar" class="form-horizontal">
-                            <div class="alert ocultar text-center" role="alert"></div>
-
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="control-label" for="txtUsuarioABuscar">Nombre del usuario</label>
-                                <input name="txtUsuarioABuscar" type="text" placeholder="Nombre del usuario" id="txtUsuarioABuscar" class="form-control input-md" />
-                                <small class="form-text text-danger"></small>
-                            </div>
-
-                            <div>
-                                <input type="button" class="btn btn-primary" value="Ver notas" id="btnBuscarNotas" name="btnBuscarNotas" />
-                            </div>
+                        <div>
+                            <input type="button" class="btn btn-primary" value="Añadir nota" id="btnCrearNota" name="btnCrearNota" />
+                        </div>
 
                         </form>
                     </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MODAL NOTA POR USUARIO-->
+    <div class="modal" tabindex="-1" role="dialog" name="modalBusquedaUsuario" id="modalBusquedaUsuario">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3>Busqueda por usuario</h3>
+                    <form name="frmUsuarioABuscar" class="form-horizontal">
+                        <div class="alert ocultar text-center" role="alert"></div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="control-label" for="txtUsuarioABuscar">Nombre del usuario</label>
+                            <input name="txtUsuarioABuscar" type="text" placeholder="Nombre del usuario" id="txtUsuarioABuscar" class="form-control input-md" />
+                            <small class="form-text text-danger"></small>
+                        </div>
+
+                        <div>
+                            <input type="button" class="btn btn-primary" value="Ver notas" id="btnBuscarNotas" name="btnBuscarNotas" />
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
-        </div>
-        </div>
+    </div>
+    </div>
 
 
-        <div class="modal" tabindex="-1" role="dialog" name="modalBusquedaGrupo" id="modalBusquedaGrupo">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h3>Busqueda por usuario</h3>
-                        <form name="frmUsuarioABuscar" class="form-horizontal">
-                            <div class="alert ocultar text-center" role="alert"></div>
+    <div class="modal" tabindex="-1" role="dialog" name="modalBusquedaGrupo" id="modalBusquedaGrupo">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3>Busqueda por usuario</h3>
+                    <form name="frmUsuarioABuscar" class="form-horizontal">
+                        <div class="alert ocultar text-center" role="alert"></div>
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="control-label" for="txtUsuarioABuscar">Nombre del grupo</label>
-                                <input name="txtGrupoABuscar" type="text" placeholder="Nombre del usuario" id="txtGrupoABuscar" class="form-control input-md" />
-                                <small class="form-text text-danger"></small>
-                            </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="control-label" for="txtUsuarioABuscar">Nombre del grupo</label>
+                            <input name="txtGrupoABuscar" type="text" placeholder="Nombre del usuario" id="txtGrupoABuscar" class="form-control input-md" />
+                            <small class="form-text text-danger"></small>
+                        </div>
 
-                            <div>
-                                <input type="button" class="btn btn-primary" value="Ver notas" id="btnBuscarGrupo" name="btnBuscarGrupo" />
-                            </div>
+                        <div>
+                            <input type="button" class="btn btn-primary" value="Ver notas" id="btnBuscarGrupo" name="btnBuscarGrupo" />
+                        </div>
 
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 <script src="js/objetos.js"></script>
 <script src="js/codigo.js"></script>
+
 
 </html>
