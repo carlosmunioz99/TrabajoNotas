@@ -269,36 +269,6 @@ let limpiarEdicionUsuario = () => {
 
 let generarTablaUsuarios = () => {
 
-    /*var oXML = loadXMLDoc("usuarios.xml");
-
-    var oTabla = document.getElementById("tabla");
-    oTabla.setAttribute("border", "1");
-
-
-    var oLibros = oXML.getElementsByTagName("usuario");
-    for (var j = 0; j < oLibros.length; j++) {
-        var numAutores = oLibros[j].getElementsByTagName("id").length;
-
-        var oFila = oTabla.insertRow(-1);
-        var oCelda = oFila.insertCell(-1);
-        oCelda.textContent = oLibros[j].getElementsByTagName("id")[0].textContent;
-
-        oCelda = oFila.insertCell(-1);
-
-        for (var h = 0; h < numAutores; h++) {
-            oCelda.textContent += oLibros[j].getElementsByTagName("nombre")[0].textContent;
-        }
-
-
-        oCelda = oFila.insertCell(-1);
-        oCelda.textContent = oLibros[j].getElementsByTagName("contraseña")[0].textContent;
-
-        oCelda = oFila.insertCell(-1);
-        oCelda.textContent = oLibros[j].getElementsByTagName("e-mail")[0].textContent;
-
-    }*/
-    //cargar el documento XML
-
     //vaciar tablas si es q hay
     let $posibleTabla = document.querySelector("#contenedor-usuarios table");
     if ($posibleTabla != null) {
@@ -331,19 +301,32 @@ let generarTablaUsuarios = () => {
 }
 
 //CARGAR XML////
+/*añadirUsuarioXML();
+
 function loadXMLDoc(filename) {
+    let xhttp = null;
     if (window.XMLHttpRequest) {
         xhttp = new XMLHttpRequest();
-    } else // code for IE5 and IE6
-    {
+    } else {
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xhttp.open("GET", filename, false);
-
     xhttp.send();
-
     return xhttp.responseXML;
 }
+
+function añadirUsuarioXML() {
+    let datos = loadXMLDoc("usuarios.xml");
+    console.log(datos);
+    datos.querySelectorAll("usuario").forEach(Usuario => {
+        let id = Usuario.querySelector("id").textContent;
+        let nombre = Usuario.querySelector("nombre").textContent;
+        let contraseña = Usuario.querySelector("contraseña").textContent;
+        let e - mail = Usuario.querySelector("e-mail").textContent;
+
+        oNotas.altaNota(new Usuario(id, nombre, contraseña, e - mail));
+    });
+}*/
 
 
 
@@ -600,11 +583,6 @@ function validarNota() {
             oNotas.altaNotaGrupo(oNota, listaGrupoUsuario);
 
         }
-
-
-
-
-
 
         let mensaje = frmNuevaNota.firstElementChild;
         mensaje.classList.remove("ocultar");
