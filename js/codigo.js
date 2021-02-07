@@ -1,11 +1,12 @@
 "use strict";
 var oNotas = new Notas();
+
 //usuarios de prueba
-let u1 = new Usuario("pepe123", "idvacs", "pepe@gmail", "Pepe");
-let u2 = new Usuario("juan123", "sftref", "juan@gmail", "Juanito");
-let u3 = new Usuario("tostada2", "idvagfddfgcs", "tostada2@gmail", "tostada");
-let u4 = new Usuario("tostadora43", "dfgef", "sech@gmail", "tostadora");
-let u5 = new Usuario("fulanito25", "cmr99d", "carlos@gmail", "fulano");
+let u1 = new Usuario("pepe123", "idvacs", "pepe@gmail.com", "Pepe");
+let u2 = new Usuario("juan123", "sftref", "juan@gmail.com", "Juan");
+let u3 = new Usuario("tostada2", "idvagfddfgcs", "tostada2@gmail.com", "Alberto");
+let u4 = new Usuario("tostadora43", "dfgef", "sech@gmail.com", "Frank");
+let u5 = new Usuario("fulanito25", "cmr99d", "carlos@gmail.com", "Fulano");
 
 oNotas.registrarUsuario(u1);
 oNotas.registrarUsuario(u2);
@@ -34,16 +35,15 @@ oNotas.altaUsuarioGrupo(g4, [u2, u1, u3, u4]);
 
 
 //notas para usuarios
-let n1 = new Nota("La curiosidad", "si alguna vez t quedas con ganas, solo me llamas a mí, yo t quiero tener solo dime cuándo", "alta");
-let n2 = new Nota("El bocachancla", "Ella es buena pero le gusta lo malo", "baja");
-let n3 = new Nota("El bandido", "Ese bandido que le hizo xdiganme x q llora", "media");
-let n4 = new Nota("Echa", "Tienes una mirada q me encanta beibe, un cuerpecito que mi mente envuelve", "alta");
+let n1 = new Nota("La curiosidad", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "alta");
+let n2 = new Nota("El bocachancla", "the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently ", "baja");
+let n3 = new Nota("El bandido", "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.", "media");
+let n4 = new Nota("Lorem", "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum", "alta");
 
 oNotas.altaNota(n1, u1.usuario);
 oNotas.altaNota(n2, u1.usuario);
 oNotas.altaNota(n3, u1.usuario);
 oNotas.altaNota(n4, u2.usuario);
-
 
 
 // Manejadores de eventos.
@@ -142,6 +142,14 @@ let borrarUsuario = (e) => {
         let sNombreUsuario = e.target.getAttribute("data-id");
         oNotas.bajaUsuario(sNombreUsuario);
         generarTablaUsuarios();
+    }
+}
+
+let borrarGrupo = (e) => {
+    if (e.target.getAttribute("class") == "fondo-eliminar") {
+        let iIdGrupo = parseInt(e.target.getAttribute("data-id"));
+        oNotas.bajaGrupo(iIdGrupo);
+        generarTablaGrupos();
     }
 }
 
@@ -289,7 +297,7 @@ let generarTablaUsuarios = () => {
     let $contUsuarios = document.getElementById("contenedor-usuarios");
 
 
-    $contUsuarios.insertBefore($tabla, $contUsuarios.lastElementChild);
+    $contUsuarios.insertBefore($tabla, $contUsuarios.querySelector("input"));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -299,17 +307,24 @@ let generarTablaUsuarios = () => {
 /*GRUPOS*/
 
 /**RELLENAR COMBO MULTIPLE DE USUARIOS PARA GRUPOS*/
+let rellenarComboCrearGrupo = () => {
+    let oLista = document.querySelector("#usuariosGrupos");
+    oLista.textContent = "";
 
-let oLista = document.querySelector("#usuariosGrupos");
-let listaUsuarios = oNotas.getUsuarios();
-//console.log(listaUsuarios);
-for (let i = 0; i < listaUsuarios.length; i++) {
     let oOpcion = document.createElement('option');
 
-    oOpcion.textContent = listaUsuarios[i].usuario;
+    oOpcion.textContent = "Seleccione usuarios";
     oLista.appendChild(oOpcion);
+
+    let listaUsuarios = oNotas.getUsuarios();
+    //console.log(listaUsuarios);
+    for (let i = 0; i < listaUsuarios.length; i++) {
+        oOpcion = document.createElement('option');
+
+        oOpcion.textContent = listaUsuarios[i].usuario;
+        oLista.appendChild(oOpcion);
+    }
 }
-/*****************************************/
 
 
 function validarGrupos() {
@@ -394,7 +409,6 @@ function generarTablaGrupos() {
     row1.insertCell(-1).textContent = "Id";
     row1.insertCell(-1).textContent = "Nombre del Grupo";
     row1.insertCell(-1).textContent = "Lista de usuarios";
-    row1.insertCell(-1).textContent = "Editar";
     row1.insertCell(-1).textContent = "Eliminar";
 
 
@@ -408,27 +422,45 @@ function generarTablaGrupos() {
     let contGrupos = document.getElementById("contenedor-grupos");
 
 
-    contGrupos.insertBefore(tabla, contGrupos.lastElementChild);
+    contGrupos.insertBefore(tabla, contGrupos.querySelector("input"));
 }
 
+let rellenarCombos = () => {
+    /*NOTAS*/
+    /**RELLENAR COMBO MULTIPLE DE USUARIOS PARA NOTAS*/
 
-/*NOTAS*/
-/**RELLENAR COMBO MULTIPLE DE USUARIOS PARA NOTAS*/
-oLista = document.querySelector("#usuarioPropietario");
-listaUsuarios = oNotas.getUsuarios();
-//console.log(listaUsuarios);
-for (let i = 0; i < listaUsuarios.length; i++) {
+
+    let oLista = document.querySelector("#usuarioPropietario");
+    oLista.textContent = "";
+
     let oOpcion = document.createElement('option');
-    oOpcion.textContent = listaUsuarios[i].usuario;
+
+    oOpcion.textContent = "Seleccione usuario...";
     oLista.appendChild(oOpcion);
-}
-/**RELLENAR COMBO DE GRUPOS PARA NOTAS*/
-let $lista = frmNuevaNota.grupoPropietario;
-let listaGrupos = oNotas.getGrupos();
-for (let i = 0; i < listaGrupos.length; i++) {
-    let oOpcion = document.createElement('option');
-    oOpcion.textContent = listaGrupos[i].nombreGrupo;
+
+
+    let listaUsuarios = oNotas.getUsuarios();
+    //console.log(listaUsuarios);
+    for (let i = 0; i < listaUsuarios.length; i++) {
+        oOpcion = document.createElement('option');
+        oOpcion.textContent = listaUsuarios[i].usuario;
+        oLista.appendChild(oOpcion);
+    }
+    /**RELLENAR COMBO DE GRUPOS PARA NOTAS*/
+    let $lista = frmNuevaNota.grupoPropietario;
+    $lista.textContent = "";
+    oOpcion = document.createElement('option');
+
+    oOpcion.textContent = "Seleccione un grupo...";
     $lista.appendChild(oOpcion);
+
+    let listaGrupos = oNotas.getGrupos();
+    for (let i = 0; i < listaGrupos.length; i++) {
+        oOpcion = document.createElement('option');
+        oOpcion.textContent = listaGrupos[i].nombreGrupo;
+        $lista.appendChild(oOpcion);
+    }
+
 }
 
 
@@ -637,8 +669,17 @@ let $btnCerrarModificarUsuario = $btnModificarUsuario.nextElementSibling;
 $btnCerrarModificarUsuario.addEventListener("click", limpiarEdicionUsuario);
 
 //GRUPOS//
+
+let btnAbrirModalCrearGrupo = document.querySelector("#contenedor-grupos button");
+btnAbrirModalCrearGrupo.addEventListener("click", rellenarComboCrearGrupo);
+
+
 let btnAñadirGrupo = document.querySelector("#btnCrearGrupos");
 btnAñadirGrupo.addEventListener("click", validarGrupos);
+
+let $contenedorGrupo = document.getElementById("contenedor-grupos");
+$contenedorGrupo.addEventListener("click", borrarGrupo);
+
 
 let btnGenerarTablaGrupos = document.querySelector("#generarTablaGrupos");
 btnGenerarTablaGrupos.addEventListener("click", generarTablaGrupos);
@@ -646,6 +687,9 @@ btnGenerarTablaGrupos.addEventListener("click", generarTablaGrupos);
 
 
 //NOTAS//
+let btnAbrirModalNota = document.querySelector("#contenedor-notas button");
+btnAbrirModalNota.addEventListener("click", rellenarCombos);
+
 let btnCrearNota = document.querySelector("#btnCrearNota");
 btnCrearNota.addEventListener("click", validarNota);
 

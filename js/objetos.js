@@ -65,13 +65,65 @@ class Notas {
 
     bajaUsuario(sNombreUsuario) {
         let iPosUsuario = this._usuarios.findIndex(oUsuario => oUsuario.usuario == sNombreUsuario);
-        this._usuarios.splice(iPosUsuario, 1);
+        let oUsuario = this._usuarios.splice(iPosUsuario, 1)[0];
 
-        let iPosUsuarioGrupo = this._usuarioGrupos.findIndex(oGrupoUsuario => oGrupoUsuario.idUsuario == sNombreUsuario);
-        //en caso de que el usuario pertenezca a un grupo
-        if (iPosUsuarioGrupo != -1) {
-            this._usuarioGrupos.splice(iPosUsuarioGrupo, 1);
+        //notas de usuario
+
+        for (let i = 0; i < oUsuario.notas.length; i++) {
+
+            let iPos = this._notas.findIndex(oN => oN.id == oUsuario.notas[i].id);
+            this._notas.splice(iPos, 1);
         }
+
+
+        let vPosGrupoUsuario = [];
+        for (let i = this._usuarioGrupos.length - 1; i >= 0; i--) {
+
+            if (this._usuarioGrupos[i].idUsuario == sNombreUsuario) {
+                vPosGrupoUsuario.push(i);
+            }
+        }
+
+
+        for (let pos of vPosGrupoUsuario) {
+            this._usuarioGrupos.splice(pos, 1);
+        }
+
+    }
+
+    bajaGrupo(iIdGrupo) {
+
+        let iPosGrupo = this._grupos.findIndex(oGru => oGru.id == iIdGrupo);
+        this._grupos.splice(iPosGrupo, 1);
+
+        let vIndices = [];
+
+
+        for (let i = 0; i < this._usuarioGrupos.length; i++) {
+            if (this._usuarioGrupos[i].idGrupo == iIdGrupo) {
+                vIndices.push(i);
+            }
+        }
+        vIndices.sort((a, b) => b - a);
+
+        //en notas
+        if (vIndices.length > 0) {
+
+            let vNotas = this._usuarioGrupos[vIndices[0]].notas;
+
+            for (let i = 0; i < vNotas.length; i++) {
+                let iPos = this._notas.findIndex(oN => oN.id == vNotas[i].id);
+                this._notas.splice(iPos, 1);
+            }
+        }
+
+
+        for (let i = 0; i < vIndices.length; i++) {
+            this._usuarioGrupos.splice(vIndices[i], 1);
+        }
+
+
+
     }
 
     generarFilasUsuarios($tbody) {
@@ -148,9 +200,7 @@ class Notas {
 
     }
 
-    bajaGrupo(oGrupo) {
 
-    }
 
     bajaNotaUsuario(sIdUsuario, sNotaId) {
         //borrar array global
@@ -190,36 +240,36 @@ class Notas {
             let oUsuarios = [];
             for (let i = 0; i < listaGruposUsuario.length; i++) {
                 let oUsuario = this.buscarUsuario(listaGruposUsuario[i].idUsuario);
-                oUsuarios.push(oUsuario);
+                if (oUsuario != undefined) {
+                    oUsuarios.push(oUsuario);
+                }
+
             }
+            if (oUsuarios.length > 0) {
 
-            let $row = tBody.insertRow(-1);
-            $row.insertCell(-1).textContent = g.id;
-            $row.insertCell(-1).textContent = g.nombreGrupo;
+                let $row = tBody.insertRow(-1);
+                $row.insertCell(-1).textContent = g.id;
+                $row.insertCell(-1).textContent = g.nombreGrupo;
 
-            let oLista = document.createElement("ul");
+                let oLista = document.createElement("ul");
 
-            for (let i = 0; i < oUsuarios.length; i++) {
-                let oElementoList = document.createElement("li");
-                oElementoList.textContent = oUsuarios[i].usuario;
-                oLista.appendChild(oElementoList);
+
+
+
+                for (let i = 0; i < oUsuarios.length; i++) {
+                    let oElementoList = document.createElement("li");
+                    oElementoList.textContent = oUsuarios[i].usuario;
+                    oLista.appendChild(oElementoList);
+                }
+
+                $row.insertCell(-1).appendChild(oLista);
+
+
+                let $eliminar = document.createElement("div");
+                $eliminar.classList.add("fondo-eliminar");
+                $eliminar.dataset.id = g.id;
+                $row.insertCell(-1).appendChild($eliminar);
             }
-
-            $row.insertCell(-1).appendChild(oLista);
-
-            //editar y eliminar
-            let $editar = document.createElement("div");
-            $editar.classList.add("fondo-editar");
-            $editar.dataset.id = g.id;
-            $editar.dataset.toggle = "modal";
-            $editar.dataset.target = "#modalEditarGrupo";
-
-            $row.insertCell(-1).appendChild($editar);
-
-            let $eliminar = document.createElement("div");
-            $eliminar.classList.add("fondo-eliminar");
-            $eliminar.dataset.id = g.id;
-            $row.insertCell(-1).appendChild($eliminar);
         }
 
     }
